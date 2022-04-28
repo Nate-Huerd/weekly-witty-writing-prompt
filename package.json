@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Nate-Huerd/weekly-witty-writing-prompt#readme",
   "devDependencies": {
     "concurrently": "^7.1.0"
+  },
+  "dependencies": {
+    "mongoose": "^6.3.1"
   }
 }
