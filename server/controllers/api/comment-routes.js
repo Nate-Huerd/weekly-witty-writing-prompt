@@ -4,6 +4,9 @@ const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 */
 
+
+// db placeholders until we create the db (referenced past module)
+
 router.get('/', (req, res) => {
   Comment.findAll()
     .then(dbCommentData => res.json(dbCommentData))
