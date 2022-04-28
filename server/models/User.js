@@ -22,19 +22,23 @@ const userSchema = new Schema(
     stories: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thought'
+        ref: 'Story'
       }
     ],
-//     friends: [
-//       {
-//         type: Schema.Types.ObjectId,
-//         ref: 'User'
-//       }
-//     ]
-//   },
-//   {
-//     toJSON: {
-//       virtuals: true
-//     }
+
+  },
+  {
+    toJSON: {
+      virtuals: true
+    }
   }
 );
+
+//story count
+userSchema.virtual('storyCount').get(function() {
+    return this.stories.length;
+  });
+
+const User = model('User', userSchema);
+
+module.exports = User;
