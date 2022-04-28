@@ -1,24 +1,22 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-const storySchema = new Schema(
+const reactionSchema = new Schema(
   {
-    thoughtText: {
+    reactionBody: {
       type: String,
-      required: 'You need to leave a thought!',
-      minlength: 1,
+      required: true,
       maxlength: 280
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: timestamp => dateFormat(timestamp)
     },
     username: {
       type: String,
       required: true
     },
-    reactions: [reactionSchema]
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: timestamp => dateFormat(timestamp)
+    }
   },
   {
     toJSON: {
@@ -27,10 +25,4 @@ const storySchema = new Schema(
   }
 );
 
-thoughtSchema.virtual('reactionCount').get(function() {
-  return this.reactions.length;
-});
-
-const Thought = model('Thought', thoughtSchema);
-
-module.exports = Thought;
+module.exports = reactionSchema;
