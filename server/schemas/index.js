@@ -1,8 +1,5 @@
-// import the gql tagged template function
-const { gql } = require('apollo-server-express');
-
-// create our typeDefs
-const typeDefs = gql``;
-
-// export the typeDefs
-module.exports = typeDefs;
+// create our typeDefs and resolvers
+const typeDefs =  require('./typeDefs')
+const resolvers = require('./resolvers') 
+// export the typeDefs and resolvers
+module.exports = {typeDefs, resolvers};
