@@ -1,7 +1,6 @@
 // import all models
-const story = require('./story');
+const Story = require('./Story');
 const User = require('./User');
-const Vote = require('./Vote');
 const Comment = require('./Comment');
 
 // create associations
@@ -10,7 +9,7 @@ User.hasMany(story, {
     foreignKey: 'user_id'
   });
   
-  story.belongsTo(User, {
+  Story.belongsTo(User, {
     foreignKey: 'user_id',
     onDelete: 'SET NULL'
   });
@@ -29,17 +28,7 @@ User.hasMany(story, {
     foreignKey: 'story_id',
     onDelete: 'SET NULL'
   });
-  
-  Vote.belongsTo(User, {
-    foreignKey: 'user_id',
-    onDelete: 'SET NULL'
-  });
-  
-  Vote.belongsTo(story, {
-    foreignKey: 'story_id',
-    onDelete: 'SET NULL'
-  });
-  
+
   User.hasMany(Vote, {
     foreignKey: 'user_id'
   });
@@ -67,6 +56,5 @@ User.hasMany(story, {
     foreignKey: 'story_id'
   });
   */
-
-  module.exports = { User, story, Vote, Comment };
+  module.exports = { User, Story, Comment };
   
