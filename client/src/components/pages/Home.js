@@ -1,4 +1,6 @@
 import React from 'react';
+// import other components
+
 
 // Home should show Prompt and user Stories
 // need pages set up for Stories,
