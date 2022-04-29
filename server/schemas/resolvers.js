@@ -23,7 +23,6 @@ const resolvers = {
             const storyData = Story.findbyID({_id: args._id}).populate('comments')
             return storyData.comments
         },
-
         // Comments: async () => {
         //     return Comment.find().sort({ createdAt: -1})
         // },
@@ -32,7 +31,7 @@ const resolvers = {
             return Story.find()
         },
     },
-    Mutations: {
+    Mutation: {
         addUser: async (parent, args) => {
             const user = await User.create(args)
         }
