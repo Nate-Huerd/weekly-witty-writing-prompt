@@ -39,9 +39,9 @@ const typeDefs = gql`
     Comment(_id: ID!): Comment
   }
 
-  type Mutations {
+  type Mutation {
     login: Auth
-    addUser: User
+    addUser(username: String!, email: String!, password: String!): User
     addStory: Story
     addComment: Comment
     addPrompt: Prompt
