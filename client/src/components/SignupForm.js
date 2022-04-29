@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { createUser } from '../utils/API';
+const Auth = require('../utils/auth');
 
 const SignupForm = () => {
   // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({ firstname:'', lastname:'', username: '', email: '', password: '' });
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
