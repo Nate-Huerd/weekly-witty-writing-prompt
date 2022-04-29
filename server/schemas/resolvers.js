@@ -12,21 +12,23 @@ const resolvers = {
         //     }
         //     throw new AuthentionError('Not logged in')
         // },
-        user: async () => {
+        User: async () => {
             return User.find()
             .select('-__v -password')
             .populate('stories')
         },
         // prompt: async () => { 
         // }.
-        comment: async (parent, args) => {
+        Comment: async (parent, args) => {
             const storyData = Story.findbyID({_id: args._id}).populate('comments')
             return storyData.comments
         },
-        comments: async () => {
-            return Comment.find().sort({ createdAt: -1})
-        },
-        story: async () => {
+
+        // Comments: async () => {
+        //     return Comment.find().sort({ createdAt: -1})
+        // },
+
+        Story: async () => {
             return Story.find()
         },
     },
