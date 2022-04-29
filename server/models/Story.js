@@ -6,8 +6,7 @@ const storySchema = new Schema(
     storyText: {
       type: String,
       required: "You need to write a story",
-      minlength: 1,
-      maxlength: 6000, //to make about 1000 words
+      minlength: 1
     },
     author: {
       type: String,
@@ -18,8 +17,7 @@ const storySchema = new Schema(
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
     },
-    comments: [commentSchema],
-    // upvotes: [voteSchema]
+    comments: [commentSchema]
   },
   {
     toJSON: {
