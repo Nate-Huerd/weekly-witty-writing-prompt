@@ -28,7 +28,7 @@ User.hasMany(story, {
     foreignKey: 'story_id',
     onDelete: 'SET NULL'
   });
-  
+
   User.hasMany(Vote, {
     foreignKey: 'user_id'
   });
@@ -56,6 +56,5 @@ User.hasMany(story, {
     foreignKey: 'story_id'
   });
   */
-
   module.exports = { User, Story, Comment };
   
