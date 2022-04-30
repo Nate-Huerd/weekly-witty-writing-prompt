@@ -42,9 +42,9 @@ query story($id: ID!) {
 
 }`
 
-export const QUERY_COMMENT = gql `
-query comment ($id: ID!) {
-    comment(_id: $id) {
+export const QUERY_STORYBYUSER = gql `
+query storyByUser ($author: String!) {
+    storyByUser(author: $author) {
         _id
         commentText
         author
