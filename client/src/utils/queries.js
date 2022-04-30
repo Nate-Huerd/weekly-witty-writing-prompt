@@ -22,4 +22,3 @@ query user($username: String!) {
     }
 }
 `
-
