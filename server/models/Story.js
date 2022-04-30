@@ -10,8 +10,8 @@ const storySchema = new Schema(
       minlength: 1
     },
     author: {
-      type: String,
-      required: true,
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     },
     createdAt: {
       type: Date,
@@ -30,7 +30,7 @@ const storySchema = new Schema(
 
 //commentCount
 storySchema.virtual("commentCount").get(function () {
-  return this.comment.length;
+  return this.comments.length;
 });
 
 const Story = model("Story", storySchema);
