@@ -41,3 +41,14 @@ query story($id: ID!) {
     }
 
 }`
+
+export const QUERY_COMMENT = gql `
+query comment ($id: ID!) {
+    comment(_id: $id) {
+        _id
+        commentText
+        author
+        createdAt
+    }
+}`
+
