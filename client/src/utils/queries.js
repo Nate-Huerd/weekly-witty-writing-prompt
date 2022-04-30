@@ -46,9 +46,9 @@ export const QUERY_STORYBYUSER = gql `
 query storyByUser ($author: String!) {
     storyByUser(author: $author) {
         _id
-        commentText
-        author
+        storyText
         createdAt
+        commentCount
     }
 }`
 
