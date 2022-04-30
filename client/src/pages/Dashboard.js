@@ -1,7 +1,4 @@
 import React from "react";
-import Prompts from "../components/Prompts";
-import Stories from "../components/Stories";
-
 
 const Dashboard = () => {
   return (
@@ -11,10 +8,10 @@ const Dashboard = () => {
         <button>Home</button>
         <button>Logout</button>
     
-      {/* <Prompts /> */}
+      <h2>This Week's Writing Prompt</h2>
       <h3>story writing area</h3>
 
-      {/* <Stories /> */}
+      <h3>list of previous stories</h3>
     </div>
   );
 };
