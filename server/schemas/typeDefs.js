@@ -18,7 +18,6 @@ const typeDefs = gql`
     storyText: String!
     author: User
     createdAt: String
-    upvotes: Int
     commentCount: Int
     comments: [Comment]
   }
@@ -27,6 +26,7 @@ const typeDefs = gql`
     commentText: String!
     author: User
     createdAt: String
+    author: User
   }
   
   type Auth {
@@ -38,14 +38,16 @@ const typeDefs = gql`
     # allStoriesByPrompt: [Story]
     User(username: String!): User
     Story(_id: String): Story
-    Comment(_id: ID!): Comment
+    storyByUser(author: String!): [Story]
   }
-
   type Mutation {
     login: Auth
     addUser(username: String!, email: String!, password: String!): User
-    addStory: Story
-    addComment: Comment
+    addStory(author: String!, storyText: String!): Story
+    addComment(author: String!, commentText: String!, storyId: ID!): Comment
+    editComment(commentId: ID!, commentText: String!, storyId: ID!): [Comment]
+    deleteComment(commentId: ID!, storyId: ID!): String
+    deleteStory(author: String!): String
     addPrompt: Prompt
   }
 `;
