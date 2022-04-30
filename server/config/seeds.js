@@ -25,5 +25,38 @@ db.once('open', async () => {
             // createdAt: '',
     
         },
-    ])
-})
+        {
+            // add more stories
+        },
+    ]);
+    console.log('stories have been seeded');
+
+    await User.deleteMany();
+
+    await User.create({
+        username: 'Jesse Pangerl',
+        email: 'jesse.pangrel@email.com',
+        password: 'jespan!22',
+        stories: [
+            { 
+                stories: []
+            }
+        ]
+    });
+    /* add another user
+    await User.create({
+        username: 'ElevatorPitchCam',
+        email: 'elevator.pitch101@campitch.com',
+        password: '',
+        stories: [
+            { 
+                stories: []
+            }
+        ]
+    });
+    */
+    console.log('users have been seeded');
+
+    // stop seeding
+    process.exit();
+});
