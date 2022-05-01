@@ -1,4 +1,8 @@
 import React from 'react';
+// import { useQuery } from "@apollo/client";
+// import { QUERY_THOUGHTS } from "../utils/queries";
+// import ThoughtList from '../components/ThoughtList';
+
 import Prompts from "../components/Prompts";
 import Stories from "../components/Stories";
 import Comments from "../components/Comments";
