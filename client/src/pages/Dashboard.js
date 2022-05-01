@@ -1,9 +1,9 @@
 import React from "react";
-
+import Stories from "../components/StoriesForm";
 const Dashboard = () => {
   return (
     <div>
-      
+      <Stories />
         <h1>USERNAME'S Writing Prompts</h1>
         <button>Home</button>
         <button>Logout</button>

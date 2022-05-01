@@ -1,6 +1,6 @@
 import React from 'react';
 import Prompts from "../components/Prompts";
-import Stories from "../components/Stories";
+import Stories from '../components/StoriesForm';
 import Comments from "../components/Comments";
 // Home should show Prompt and user Stories
 // need pages set up for Stories,
