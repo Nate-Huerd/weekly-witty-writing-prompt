@@ -38,6 +38,10 @@ const resolvers = {
         }
     },
     Mutation: {
+        editUsername: async (parent, args) => {
+            const changedUser = await User.findOneAndUpdate({username: args.oldUsername}, {$set: {username: args.newUsername}}, {new: true, runValidators: true})
+            return changedUser
+        },
         addUser: async (parent, args) => {
             const user = await User.create(args)
             console.log(user)
