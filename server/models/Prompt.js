@@ -18,4 +18,6 @@ const promptSchema = new Schema(
     }
 );
 
+const Prompt = model("Prompt", promptSchema);
+
 module.exports = promptSchema;
