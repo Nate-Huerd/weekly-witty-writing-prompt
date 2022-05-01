@@ -1,4 +1,4 @@
-const { Comment, Story, User } = require('../models')
+const { Comment, Story, User, Prompt } = require('../models')
 
 const resolvers = {
     Query: {
@@ -35,6 +35,10 @@ const resolvers = {
             const stories = await Story.find({author}).populate('comments').populate('author')
             console.log(stories)
             return stories
+        },
+        Prompt: async() => {
+            const prompts = await Prompt.find()
+            .populate()
         }
     },
     Mutation: {
