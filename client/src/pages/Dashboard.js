@@ -1,6 +1,7 @@
 import React from "react";
-import Stories from "../components/Stories";
-import loginForm from '../components/LoginForm'
+import Prompts from "../components/Prompts";
+// import Stories from "../components/Stories";
+
 const Dashboard = () => {
   return (
     <div>
@@ -10,10 +11,11 @@ const Dashboard = () => {
         <button>Home</button>
         <button>Logout</button>
 
-        <h2>This Week's Writing Prompt</h2>
+    
+      <Prompts />
       <h3>story writing area</h3>
 
-      <h3>list of previous stories</h3>
+      {/* <Stories /> */}
     </div>
   );
 };
