@@ -18,9 +18,9 @@ mutation signUp($username: String!, $email: String!, $password: String!) {
       username
       email
     }
-  }`
+}`
 export const LOGIN = gql`
-utation Login {
+mutation Login {
     login {
       token
       user {
@@ -28,7 +28,7 @@ utation Login {
        username 
       }
     }
-  }`
+}`
 export const ADD_COMMENT = gql `
 mutation addComment($author: String!, $commentText: String!, $storyId: ID!) {
     addComment(author: $author, commentText: $commentText, storyId: $storyId) {
@@ -52,3 +52,11 @@ export const DELETE_STORY_BY_ID = gql`
 mutation deleteStoryById($storyId: String!) {
     deleteStoryById(storyId: $storyId)
   }`
+export const EDIT_USERNAME = gql`
+mutation EditUsername($oldUsername: String!, $newUsername: String!) {
+editUsername(oldUsername: $oldUsername, newUsername: $newUsername) {
+    _id
+    username
+    email
+    }
+}`
