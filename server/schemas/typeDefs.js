@@ -6,7 +6,8 @@ const typeDefs = gql`
     username: String!
     email: String!
     storyCount: Int
-    stories: [String]
+    stories: [Story]
+    isAdmin: Boolean
   }
   type Prompt {
     _id: ID!
@@ -35,17 +36,21 @@ const typeDefs = gql`
     # me: User
     # allStoriesByPrompt: [Story]
     User(username: String!): User
+    getAllUsers: [User]
     Story(_id: String): Story
     storyByUser(author: String!): [Story]
   }
   type Mutation {
     login: Auth
+    makeAdmin(username: String!): User
+    removeAdmin(username: String): User
     addUser(username: String!, email: String!, password: String!): User
     addStory(author: String!, storyText: String!): Story
     addComment(author: String!, commentText: String!, storyId: ID!): Comment
-    editComment(commentId: ID!, commentText: String!, storyId: ID!): [Comment]
+    editComment(commentId: ID!, commentText: String!, storyId: ID!): Comment
     deleteComment(commentId: ID!, storyId: ID!): String
-    deleteStory(author: String!): String
+    deleteStoryByAuthor(author: String!): String
+    deleteStoryById(storyId: String!): String
     addPrompt: Prompt
   }
 `;
