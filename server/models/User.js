@@ -24,9 +24,11 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'Story'
-      }
-    ],
-
+      }]
+    ,
+    isAdmin: {
+      type: Boolean
+    }
   },
   {
     toJSON: {
