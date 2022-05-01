@@ -27,7 +27,6 @@ const typeDefs = gql`
     commentText: String!
     author: User
     createdAt: String
-    author: User
   }
   
   type Auth {

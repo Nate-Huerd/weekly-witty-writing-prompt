@@ -27,7 +27,8 @@ const resolvers = {
         // prompt: async () => { 
         // }.
         Story: async (parent, args) => {
-            return Story.findById(args._id)
+            return await Story.findById(args._id).populate('author')
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
         storyByUser: async (parent, args) => {
             const author = await User.findOne({username: args.author})
@@ -45,15 +46,19 @@ const resolvers = {
         },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
-            console.log(author[0]) 
+            console.log(author) 
             const story = await Story.create({author: author, storyText: args.storyText})
             await User.findOneAndUpdate({username: args.author}, {$addToSet: {stories: story}})
             console.log(story)
             return story
         },
         addComment: async (parent, args) => {
-            const updatedComment = await Story.findOneAndUpdate({_id: args.storyId},{$push: {comments: {commentText: args.commentText, author: args.author}}}, {new: true, runvalidators: true})
+            const commentAuthor = await User.findOne({username: args.author})
+            console.log(commentAuthor.username)
+            const updatedComment = await Story.findOneAndUpdate({_id: args.storyId},{$addToSet: {comments: {commentText: args.commentText, author: commentAuthor}}}, {new: true, runvalidators: true})
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             const index = updatedComment.comments.length - 1
+            console.log(updatedComment.comments[index])
             return updatedComment.comments[index]
         },
         // editComment: async (parent, args) => {
