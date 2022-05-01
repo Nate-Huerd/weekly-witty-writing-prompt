@@ -60,3 +60,5 @@ db.once('open', async () => {
     // stop seeding
     process.exit();
 });
+
+// add comments to the stories
