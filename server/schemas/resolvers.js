@@ -24,8 +24,9 @@ const resolvers = {
             console.log(users)
             return users
         },
-        // prompt: async () => { 
-        // }.
+        //Prompt: async () => { 
+        },
+
         Story: async (parent, args) => {
             return Story.findById(args._id)
         },

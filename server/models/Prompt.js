@@ -5,6 +5,7 @@ const promptSchema = new Schema(
         promptText: {
             type: String,
             required: true,
+            unique: true
         },
         author: {
             type: Schema.Types.ObjectId,
