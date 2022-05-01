@@ -25,7 +25,6 @@ const typeDefs = gql`
   type Comment {
     _id: ID!
     commentText: String!
-    author: User
     createdAt: String
     author: User
   }
