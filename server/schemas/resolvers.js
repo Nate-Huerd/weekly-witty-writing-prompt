@@ -19,18 +19,29 @@ const resolvers = {
             console.log(user)
             return user[0]
         },
+        getAllUsers: async () => {
+            const users = await User.find().populate('stories')
+            console.log(users)
+            return users
+        },
         // prompt: async () => { 
         // }.
         Story: async (parent, args) => {
             return Story.findById(args._id)
         },
-        storyByUser: async (parent, {author}) => {
-            const stories = await Story.find({author}).populate('comments')
+        storyByUser: async (parent, args) => {
+            const author = await User.findOne({username: args.author})
+            console.log(author)
+            const stories = await Story.find({author}).populate('comments').populate('author')
             console.log(stories)
             return stories
         }
     },
     Mutation: {
+        editUsername: async (parent, args) => {
+            const changedUser = await User.findOneAndUpdate({username: args.oldUsername}, {$set: {username: args.newUsername}}, {new: true, runValidators: true})
+            return changedUser
+        },
         addUser: async (parent, args) => {
             const user = await User.create(args)
             console.log(user)
@@ -38,8 +49,9 @@ const resolvers = {
         },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
-            console.log(author)
+            console.log(author[0]) 
             const story = await Story.create({author: author, storyText: args.storyText})
+            await User.findOneAndUpdate({username: args.author}, {$addToSet: {stories: story}})
             console.log(story)
             return story
         },
@@ -56,9 +68,28 @@ const resolvers = {
             const deletedComment = await Story.findOneAndUpdate({_id: args.storyId}, {$pull: {comments: {_id: args.commentId}}}, {new: true})
             return "comment with ID " + args.commentId +" has been deleted"
         },
-        deleteStory: async (parent, args) => {
-            const deletedStory = await Story.deleteMany({author: args.author})
+        deleteStoryByAuthor: async (parent, args) => {
+            const author = await User.findOne({username: args.author})
+            const deletedStory = await Story.deleteMany({author: author})
             return "All Stories By " + args.author + " have been deleted"
+        },
+        deleteStoryById: async (parent, {storyId}) => {
+            const deletedStory = await Story.deleteOne({_id: storyId})
+            console.log(deletedStory)
+            if (deletedStory.deletedCount === 0) {
+                return "No Story with that ID"
+            }
+            else {
+                return "Story has been deleted"
+            }
+        },
+        makeAdmin: async (parent, {username}) => {
+            const newAdmin = await User.findOneAndUpdate({username}, {$set: {isAdmin: true}}, {new: true})
+            return newAdmin
+        },
+        removeAdmin: async (parent, {username}) => {
+            const notAdmin = await User.findOneAndUpdate({username}, {$set: {isAdmin: false}}, {new: true})
+            return notAdmin
         }
     }
 }
