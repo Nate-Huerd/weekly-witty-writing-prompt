@@ -29,14 +29,18 @@ query story($id: ID!) {
     story(_id: $id) {
         _id
         storyText
-        author
+        author {
+            username
+        }
         createdAt
         upvotes
         commentCount
         comments {
             _id
             commentText
-            author
+            author {
+                username
+            }
             createdAt
         }
     }
