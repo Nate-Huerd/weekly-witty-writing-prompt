@@ -6,6 +6,7 @@ const Dashboard = () => {
   return (
     <div>
         <Stories />
+        <loginForm />
         <h1>USERNAME'S Writing Prompts</h1>
         <button>Home</button>
         <button>Logout</button>
