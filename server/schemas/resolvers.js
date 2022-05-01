@@ -35,7 +35,7 @@ const resolvers = {
             const stories = await Story.find({author}).populate('comments').populate('author')
             console.log(stories)
             return stories
-        }
+        },
     },
     Mutation: {
         editUsername: async (parent, args) => {
