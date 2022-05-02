@@ -22,8 +22,6 @@ query user($username: String!) {
     }
 }
 `
-
-
 export const QUERY_STORY = gql `
 query story($id: ID!) {
     story(_id: $id) {
