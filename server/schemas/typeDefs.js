@@ -40,6 +40,7 @@ const typeDefs = gql`
     getAllUsers: [User]
     Story(_id: String): Story
     storyByUser(author: String!): [Story]
+    getAllStories: [Story]
   }
   type Mutation {
     editUsername(oldUsername: String!, newUsername: String!): User

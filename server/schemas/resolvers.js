@@ -37,12 +37,17 @@ const resolvers = {
             const stories = await Story.find({author}).populate('comments').populate('author')
             console.log(stories)
             return stories
+        },
+        getAllStories: async () => {
+            const stories = await Story.find().populate('comments')
+            console.log(stories)
+            return stories
         }
     },
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
-      
+            
             if (!user) {
               throw new AuthenticationError('Incorrect credentials');
             }
