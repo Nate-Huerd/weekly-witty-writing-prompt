@@ -34,7 +34,7 @@ const typeDefs = gql`
     user: User
   }
   type Query {
-    # me: User
+    me: User
     # allStoriesByPrompt: [Story]
     User(username: String!): User
     getAllUsers: [User]
