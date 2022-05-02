@@ -22,31 +22,53 @@ query user($username: String!) {
     }
 }
 `
-<<<<<<< HEAD
-=======
-export const QUERY_STORIES = gql`
-  query stories($username: String) {
-    stories(username: $username) {
+
+// export const QUERY_STORIES = gql`
+//   query stories($username: String) {
+//     stories(username: $username) {
+//         _id
+//         storyText
+//         author {
+//             username
+//         }
+//         createdAt
+//         upvotes
+//         commentCount
+//         comments {
+//             _id
+//             commentText
+//             author {
+//                 username
+//             }
+//             createdAt
+//         }
+//   }
+// `;
+
+export const QUERY_GET_ALL_STORIES = gql`
+ {
+    getAllStories {
         _id
         storyText
-        author {
-            username
-        }
+        # author {
+        #     username
+        # }
         createdAt
-        upvotes
+        # upvotes
         commentCount
         comments {
             _id
             commentText
-            author {
-                username
-            }
+            # author {
+            #     username
+            # }
             createdAt
         }
   }
+  }
+  
 `;
 
->>>>>>> 09d0c565a2ec2e916a8f59303c9ab5797edd215a
 export const QUERY_STORY = gql `
 query story($id: String!) {
     Story(_id: $id) {
