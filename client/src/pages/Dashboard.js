@@ -1,10 +1,10 @@
 import React from "react";
 import Prompts from "../components/Prompts";
 // import Stories from "../components/Stories";
-import { QUERY_STORY_BY_USER } from "../utils/queries";
-import { useQuery } from "@apollo/client";
+// import { QUERY_STORY_BY_USER } from "../utils/queries";
+// import { useQuery } from "@apollo/client";
 const Dashboard = () => {
-  allUserStories = useQuery(QUERY_STORY_BY_USER)
+  // allUserStories = useQuery(QUERY_STORY_BY_USER)
   
   return (
     <div>
