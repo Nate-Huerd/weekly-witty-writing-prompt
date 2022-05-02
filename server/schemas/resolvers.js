@@ -1,4 +1,6 @@
 const { Comment, Story, User } = require('../models')
+const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -48,6 +50,22 @@ const resolvers = {
             console.log(user)
             return user
         },
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
+            if (!user) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const token = signToken(user);
+            return { token, user };
+          },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
             console.log(author) 
