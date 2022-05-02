@@ -5,21 +5,21 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id})
-                .select('-_v -password')
-                .populate('thouights')
-                .populate('stories')
-                return 
+              const userData = await User.findOne({ _id: context.user._id })
+                .select('-__v -password')
+      
+              return userData;
             }
-            throw new AuthentionError('Not logged in')
-        },
-        User: async () => {
-            const user= await User.find()
+      
+            throw new AuthenticationError('Not logged in');
+          },
+            User: async (parent, {username}) => {
+            const user= await User.findOne({username})
             .select('-__v -password')
             .populate('stories')
             console.log(user)
             return user
-        },
+            },
         getAllUsers: async () => {
             const users = await User.find().populate('stories')
             console.log(users)
@@ -61,10 +61,11 @@ const resolvers = {
             return changedUser
         },
         addUser: async (parent, args) => {
-            const user = await User.create(args)
-            console.log(user)
-            return user[0]
-        },
+            const user = await User.create(args);
+            const token = signToken(user);
+          
+            return { token, user };
+          },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
             console.log(author) 
