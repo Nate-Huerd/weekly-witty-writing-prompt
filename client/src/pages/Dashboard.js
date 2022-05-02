@@ -1,17 +1,22 @@
 import React from "react";
-
+import Prompts from "../components/Prompts";
+// import Stories from "../components/Stories";
+// import { QUERY_STORY_BY_USER } from "../utils/queries";
+// import { useQuery } from "@apollo/client";
 const Dashboard = () => {
+  // allUserStories = useQuery(QUERY_STORY_BY_USER)
+  
   return (
     <div>
-      
         <h1>USERNAME'S Writing Prompts</h1>
         <button>Home</button>
         <button>Logout</button>
+
     
-      <h2>This Week's Writing Prompt</h2>
+      <Prompts />
       <h3>story writing area</h3>
 
-      <h3>list of previous stories</h3>
+      {/* <Stories /> */}
     </div>
   );
 };
