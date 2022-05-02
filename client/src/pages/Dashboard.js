@@ -5,7 +5,7 @@ import Prompts from "../components/Prompts";
 const Dashboard = () => {
   return (
     <div>
-        <Stories />
+        {/* <Stories /> */}
         <h1>USERNAME'S Writing Prompts</h1>
         <button>Home</button>
         <button>Logout</button>

@@ -46,7 +46,7 @@ const resolvers = {
         addUser: async (parent, args) => {
             const user = await User.create(args)
             console.log(user)
-            return user[0]
+            return user
         },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})

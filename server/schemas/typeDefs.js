@@ -26,6 +26,7 @@ const typeDefs = gql`
     _id: ID!
     commentText: String!
     createdAt: String
+    author: User
   }
   
   type Auth {
