@@ -1,23 +1,24 @@
 const { Comment, Story, User } = require('../models')
-
+const {AuthenticationError} = require('apollo-server-express')
+const {signToken} = require('../utils/auth')
 const resolvers = {
     Query: {
-        // me: async (parent, args, context) => {
-        //     if (context.user) {
-        //         const userData = await User.findOne({ _id: context.user._id})
-        //         .select('-_v -password')
-        //         .populate('thouights')
-        //         .populate('stories')
-        //         return 
-        //     }
-        //     throw new AuthentionError('Not logged in')
-        // },
+        me: async (parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({ _id: context.user._id})
+                .select('-_v -password')
+                .populate('thouights')
+                .populate('stories')
+                return 
+            }
+            throw new AuthentionError('Not logged in')
+        },
         User: async () => {
             const user= await User.find()
             .select('-__v -password')
             .populate('stories')
             console.log(user)
-            return user[0]
+            return user
         },
         getAllUsers: async () => {
             const users = await User.find().populate('stories')
@@ -39,6 +40,22 @@ const resolvers = {
         }
     },
     Mutation: {
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
+            if (!user) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const token = signToken(user);
+            return { token, user };
+        },
         editUsername: async (parent, args) => {
             const changedUser = await User.findOneAndUpdate({username: args.oldUsername}, {$set: {username: args.newUsername}}, {new: true, runValidators: true})
             return changedUser

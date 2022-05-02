@@ -33,7 +33,7 @@ const typeDefs = gql`
     user: User
   }
   type Query {
-    # me: User
+    me: User
     # allStoriesByPrompt: [Story]
     User(username: String!): User
     getAllUsers: [User]
@@ -42,7 +42,7 @@ const typeDefs = gql`
   }
   type Mutation {
     editUsername(oldUsername: String!, newUsername: String!): User
-    login: Auth
+    login(email: String!, password: String!): Auth
     makeAdmin(username: String!): User
     removeAdmin(username: String): User
     addUser(username: String!, email: String!, password: String!): User
