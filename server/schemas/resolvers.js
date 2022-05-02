@@ -1,4 +1,5 @@
-const { Comment, Story, User } = require('../models')
+const Prompt = require('inquirer/lib/prompts/base')
+const { Comment, Story, User, Prompt } = require('../models')
 
 const resolvers = {
     Query: {
@@ -24,7 +25,10 @@ const resolvers = {
             console.log(users)
             return users
         },
-        //Prompt: async () => { 
+        Prompt: async () => {
+            const prompt = await Prompt.find()
+            .populate('prompt')
+            return prompt
         },
 
         Story: async (parent, args) => {
