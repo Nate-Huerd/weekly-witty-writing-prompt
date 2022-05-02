@@ -1,5 +1,3 @@
-
-const Prompt = require('inquirer/lib/prompts/base')
 const { Comment, Story, User, Prompt } = require('../models')
 
 
@@ -40,17 +38,16 @@ const resolvers = {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
-        storyByUser: async (parent, args) => {
+        storyByUser: async (parent, args, context) => {
             const author = await User.findOne({username: args.author})
-            console.log(author)
+            // console.log(author)
             const stories = await Story.find({author}).populate('comments').populate('author')
-            console.log(stories)
+            // console.log(stories)
             return stories
         },
-
-
         getAllStories: async () => {
-            const stories = await Story.find().populate('comments').sort( {createdAt: -1})
+            const stories = await Story.find().populate('comments').populate('author').sort( {createdAt: -1})
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             console.log(stories)
             return stories
         }

@@ -41,6 +41,7 @@ const typeDefs = gql`
     Story(_id: String): Story
     storyByUser(author: String!): [Story]
     getAllStories: [Story]
+    Prompt: Prompt
   }
   type Mutation {
     editUsername(oldUsername: String!, newUsername: String!): User
