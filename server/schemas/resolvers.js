@@ -31,6 +31,10 @@ const resolvers = {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
+        Stories: async (parent, {author}) => {
+            const params = author ? { author } : {};
+            return Story.find(params).sort({ createdAt: -1 });
+        },
         storyByUser: async (parent, args) => {
             const author = await User.findOne({username: args.author})
             console.log(author)

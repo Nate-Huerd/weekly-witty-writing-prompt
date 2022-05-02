@@ -22,7 +22,27 @@ query user($username: String!) {
     }
 }
 `
-
+export const QUERY_STORIES = gql`
+  query stories($username: String) {
+    stories(username: $username) {
+        _id
+        storyText
+        author {
+            username
+        }
+        createdAt
+        upvotes
+        commentCount
+        comments {
+            _id
+            commentText
+            author {
+                username
+            }
+            createdAt
+        }
+  }
+`;
 
 export const QUERY_STORY = gql `
 query story($id: String!) {
