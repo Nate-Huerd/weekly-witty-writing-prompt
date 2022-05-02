@@ -2,8 +2,8 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_GET_ALL_STORIES } from "../utils/queries";
 import StoryList from "../components/StoryList";
+import Prompts from "../components/Prompts";
 
-// import Prompts from "../components/Prompts";
 // import Stories from '../components/StoriesForm';
 // import Comments from "../components/Comments";
 // Home should show Prompt and user Stories
@@ -27,6 +27,7 @@ const Home = () => {
 return (
     <main>
     <div className="flex-row justify-space-between">
+    <Prompts />
       <div className="col-12 mb-3">
         {loading ? (
           <div>Loading...</div>
