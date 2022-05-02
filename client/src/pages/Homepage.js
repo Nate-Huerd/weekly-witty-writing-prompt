@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { QUERY_STORIES } from "../utils/queries";
-import StoryList from "../components/StoryList";
+import { QUERY_GET_ALL_STORIES } from "../utils/queries";
+// import StoryList from "../components/StoryList";
 
 // import Prompts from "../components/Prompts";
 // import Stories from '../components/StoriesForm';
@@ -10,7 +10,7 @@ import StoryList from "../components/StoryList";
 // need pages set up for Stories,
 const Home = () => {
   // use useQuery hook to make query request
-  const { loading, data } = useQuery(QUERY_STORIES);
+  const { loading, data } = useQuery(QUERY_GET_ALL_STORIES);
   const stories = data?.stories || [];
   console.log(stories);
 
