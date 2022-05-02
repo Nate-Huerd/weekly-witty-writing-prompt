@@ -47,6 +47,7 @@ const resolvers = {
         },
         getAllStories: async () => {
             const stories = await Story.find().populate('comments').populate('author').sort( {createdAt: -1})
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             console.log(stories)
             return stories
         }
