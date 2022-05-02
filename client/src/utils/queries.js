@@ -50,18 +50,14 @@ export const QUERY_GET_ALL_STORIES = gql`
     getAllStories {
         _id
         storyText
-        # author {
-        #     username
-        # }
+        author {
+             username
+        }
         createdAt
-        # upvotes
         commentCount
         comments {
             _id
             commentText
-            # author {
-            #     username
-            # }
             createdAt
         }
   }

@@ -10,7 +10,6 @@ const resolvers = {
             if (context.user) {
               const userData = await User.findOne({ _id: context.user._id })
                 .select('-__v -password')
-      
               return userData;
             }
       
@@ -20,12 +19,10 @@ const resolvers = {
             const user= await User.findOne({username})
             .select('-__v -password')
             .populate('stories')
-            console.log(user)
             return user
             },
         getAllUsers: async () => {
             const users = await User.find().populate('stories')
-            console.log(users)
             return users
         },
         Prompt: async () => {
@@ -38,17 +35,14 @@ const resolvers = {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
-        storyByUser: async (parent, args, context) => {
+        storyByUser: async (parent, args) => {
             const author = await User.findOne({username: args.author})
-            // console.log(author)
             const stories = await Story.find({author}).populate('comments').populate('author')
-            // console.log(stories)
             return stories
         },
         getAllStories: async () => {
             const stories = await Story.find().populate('comments').populate('author').sort( {createdAt: -1})
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
-            console.log(stories)
             return stories
         }
 
