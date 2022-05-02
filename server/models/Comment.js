@@ -9,8 +9,8 @@ const commentSchema = new Schema(
       maxlength: 500
     },
     author: {
-      type: String,
-      required: true
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     },
     createdAt: {
       type: Date,

@@ -2,7 +2,7 @@ import React from "react";
 
 const Prompts = () => {
     return (
-<h1>Once upon a time....</h1>
+    <h1>Once upon a time....</h1>
     )
 }
 

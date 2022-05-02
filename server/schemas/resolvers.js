@@ -1,33 +1,44 @@
+
+const Prompt = require('inquirer/lib/prompts/base')
 const { Comment, Story, User, Prompt } = require('../models')
+
+
+const {AuthenticationError} = require('apollo-server-express')
+const {signToken} = require('../utils/auth')
 
 const resolvers = {
     Query: {
-        // me: async (parent, args, context) => {
-        //     if (context.user) {
-        //         const userData = await User.findOne({ _id: context.user._id})
-        //         .select('-_v -password')
-        //         .populate('thouights')
-        //         .populate('stories')
-        //         return 
-        //     }
-        //     throw new AuthentionError('Not logged in')
-        // },
-        User: async () => {
-            const user= await User.find()
+        me: async (parent, args, context) => {
+            if (context.user) {
+              const userData = await User.findOne({ _id: context.user._id })
+                .select('-__v -password')
+      
+              return userData;
+            }
+      
+            throw new AuthenticationError('Not logged in');
+          },
+            User: async (parent, {username}) => {
+            const user= await User.findOne({username})
             .select('-__v -password')
             .populate('stories')
             console.log(user)
-            return user[0]
-        },
+            return user
+            },
         getAllUsers: async () => {
             const users = await User.find().populate('stories')
             console.log(users)
             return users
         },
-        // prompt: async () => { 
-        // }.
+        Prompt: async () => {
+            const prompt = await Prompt.find()
+            .populate('prompt')
+            return prompt
+        },
+
         Story: async (parent, args) => {
-            return Story.findById(args._id)
+            return await Story.findById(args._id).populate('author')
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
         storyByUser: async (parent, args) => {
             const author = await User.findOne({username: args.author})
@@ -36,32 +47,72 @@ const resolvers = {
             console.log(stories)
             return stories
         },
-        Prompt: async() => {
-            const prompts = await Prompt.find()
-            .populate()
+
+
+        getAllStories: async () => {
+            const stories = await Story.find().populate('comments').sort( {createdAt: -1})
+            console.log(stories)
+            return stories
         }
+
     },
     Mutation: {
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+            
+            if (!user) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const token = signToken(user);
+            return { token, user };
+        },
         editUsername: async (parent, args) => {
             const changedUser = await User.findOneAndUpdate({username: args.oldUsername}, {$set: {username: args.newUsername}}, {new: true, runValidators: true})
             return changedUser
         },
         addUser: async (parent, args) => {
-            const user = await User.create(args)
-            console.log(user)
-            return user[0]
+            const user = await User.create(args);
+            const token = signToken(user);
+            return user
         },
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
+            if (!user) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const token = signToken(user);
+            return { token, user };
+          },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
-            console.log(author[0]) 
+            console.log(author) 
             const story = await Story.create({author: author, storyText: args.storyText})
             await User.findOneAndUpdate({username: args.author}, {$addToSet: {stories: story}})
             console.log(story)
             return story
         },
         addComment: async (parent, args) => {
-            const updatedComment = await Story.findOneAndUpdate({_id: args.storyId},{$push: {comments: {commentText: args.commentText, author: args.author}}}, {new: true, runvalidators: true})
+            const commentAuthor = await User.findOne({username: args.author})
+            console.log(commentAuthor.username)
+            const updatedComment = await Story.findOneAndUpdate({_id: args.storyId},{$addToSet: {comments: {commentText: args.commentText, author: commentAuthor}}}, {new: true, runvalidators: true})
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             const index = updatedComment.comments.length - 1
+            console.log(updatedComment.comments[index])
             return updatedComment.comments[index]
         },
         // editComment: async (parent, args) => {

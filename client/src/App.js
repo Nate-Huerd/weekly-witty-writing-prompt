@@ -1,10 +1,34 @@
 import React from 'react';
-import './App.css';
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
+import Homepage from './pages/Homepage';
+
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+
+
+
+
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
-    <Dashboard />
+    <ApolloProvider client={client}>
+       <div className="flex-column justify-flex-start min-100-vh">
+         {/* <Header /> */}
+         <div className="container">
+    {/* <Dashboard /> */}
+    <Homepage />
+    </div>
+    {/* <Footer /> */}
+    </div>
+    </ApolloProvider>
   );
 }
 
