@@ -54,7 +54,7 @@ export const QUERY_GET_ALL_STORIES = gql`
         #     username
         # }
         createdAt
-        upvotes
+        # upvotes
         commentCount
         comments {
             _id

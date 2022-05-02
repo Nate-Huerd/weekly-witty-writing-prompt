@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_GET_ALL_STORIES } from "../utils/queries";
-// import StoryList from "../components/StoryList";
+import StoryList from "../components/StoryList";
 
 // import Prompts from "../components/Prompts";
 // import Stories from '../components/StoriesForm';
@@ -14,15 +14,30 @@ const Home = () => {
   const stories = data?.stories || [];
   console.log(stories);
 
-  return (
-      <main>
-    <div className="container">
-      {/* <Prompts /> */}
-      {/* <StoryList /> */}
-      {/* <Comments /> */}
+//   return (
+//       <main>
+//     <div className="container">
+//       {/* <Prompts /> */}
+//       {/* <StoryList /> */}
+//       {/* <Comments /> */}
+//     </div>
+//     </main>
+//   );
+
+return (
+    <main>
+    <div className="flex-row justify-space-between">
+      <div className="col-12 mb-3">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <StoryList stories={stories} title="Read the stories from this week's prompt!" />
+        )}
+      </div>
     </div>
-    </main>
+  </main>
   );
 };
+
 
 export default Home;
