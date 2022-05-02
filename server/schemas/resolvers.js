@@ -1,6 +1,11 @@
-const { Comment, Story, User } = require('../models')
+
+const Prompt = require('inquirer/lib/prompts/base')
+const { Comment, Story, User, Prompt } = require('../models')
+
+
 const {AuthenticationError} = require('apollo-server-express')
 const {signToken} = require('../utils/auth')
+
 const resolvers = {
     Query: {
         me: async (parent, args, context) => {
@@ -25,8 +30,12 @@ const resolvers = {
             console.log(users)
             return users
         },
-        // prompt: async () => { 
-        // }.
+        Prompt: async () => {
+            const prompt = await Prompt.find()
+            .populate('prompt')
+            return prompt
+        },
+
         Story: async (parent, args) => {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
@@ -38,11 +47,14 @@ const resolvers = {
             console.log(stories)
             return stories
         },
+
+
         getAllStories: async () => {
             const stories = await Story.find().populate('comments').sort( {createdAt: -1})
             console.log(stories)
             return stories
         }
+
     },
     Mutation: {
         login: async (parent, { email, password }) => {
