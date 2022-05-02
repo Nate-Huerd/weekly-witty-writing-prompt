@@ -31,6 +31,10 @@ const resolvers = {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
+        Stories: async (parent, {author}) => {
+            const params = author ? { author } : {};
+            return Story.find(params).sort({ createdAt: -1 });
+        },
         storyByUser: async (parent, args) => {
             const author = await User.findOne({username: args.author})
             console.log(author)
@@ -63,8 +67,24 @@ const resolvers = {
         addUser: async (parent, args) => {
             const user = await User.create(args)
             console.log(user)
-            return user[0]
+            return user
         },
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
+            if (!user) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const token = signToken(user);
+            return { token, user };
+          },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
             console.log(author) 
