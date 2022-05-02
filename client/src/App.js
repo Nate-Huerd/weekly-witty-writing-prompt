@@ -1,11 +1,17 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Dashboard from "./pages/Dashboard";
 import Homepage from './pages/Homepage';
+import Login from './pages/Login';
+import NoMatch from './pages/NoMatch';
+import Signup from './pages/Signup';
+
+
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-
-
 
 
 
@@ -21,10 +27,33 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-    {/* <Dashboard /> */}
-    <Homepage />
+      <Router>
+        <div className="flex-column justify-flex-start min-100-vh">
+          {/* <Header /> */}
+          <div className="container">
+            <Routes>
+              <Route
+                path="/"
+                element={<Homepage />}
+              />
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              {/* <Route
+                path="/signup"
+                element={<Signup />}
+              /> */}
+              <Route
+                path="/profile"
+                element={<Dashboard />}
+              />
+            </Routes>
+          </div>
+          {/* <Footer /> */}
+        </div>
+      </Router>
     </ApolloProvider>
   );
 }
-
 export default App;
