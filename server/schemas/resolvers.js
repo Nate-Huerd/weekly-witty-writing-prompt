@@ -31,14 +31,15 @@ const resolvers = {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
         },
-        Stories: async (parent, {author}) => {
-            const params = author ? { author } : {};
-            return Story.find(params).sort({ createdAt: -1 });
-        },
         storyByUser: async (parent, args) => {
             const author = await User.findOne({username: args.author})
             console.log(author)
             const stories = await Story.find({author}).populate('comments').populate('author')
+            console.log(stories)
+            return stories
+        },
+        getAllStories: async () => {
+            const stories = await Story.find().populate('comments').sort( {createdAt: -1})
             console.log(stories)
             return stories
         }
@@ -46,7 +47,7 @@ const resolvers = {
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
-      
+            
             if (!user) {
               throw new AuthenticationError('Incorrect credentials');
             }

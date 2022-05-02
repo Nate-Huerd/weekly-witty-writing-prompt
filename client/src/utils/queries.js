@@ -22,6 +22,8 @@ query user($username: String!) {
     }
 }
 `
+<<<<<<< HEAD
+=======
 export const QUERY_STORIES = gql`
   query stories($username: String) {
     stories(username: $username) {
@@ -44,6 +46,7 @@ export const QUERY_STORIES = gql`
   }
 `;
 
+>>>>>>> 09d0c565a2ec2e916a8f59303c9ab5797edd215a
 export const QUERY_STORY = gql `
 query story($id: String!) {
     Story(_id: $id) {
