@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Dashboard from "./pages/Dashboard";
 import Homepage from './pages/Homepage';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
-import Signup from './pages/Signup';
+// import Signup from './pages/Signup';
 
 
-import Header from './components/Header';
+// import Header from './components/Header';
 import Footer from './components/Footer';
 
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -36,21 +36,21 @@ function App() {
                 path="/"
                 element={<Homepage />}
               />
-              <Route
+              {/* <Route
                 path="/login"
                 element={<Login />}
-              />
+              /> */}
               {/* <Route
                 path="/signup"
                 element={<Signup />}
               /> */}
               <Route
-                path="/profile"
+                path="/dashboard"
                 element={<Dashboard />}
               />
             </Routes>
           </div>
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>
