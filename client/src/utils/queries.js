@@ -47,7 +47,7 @@ query story($id: ID!) {
 
 }`
 
-export const QUERY_STORYBYUSER = gql `
+export const QUERY_STORY_BY_USER = gql `
 query storyByUser ($author: String!) {
     storyByUser(author: $author) {
         _id
