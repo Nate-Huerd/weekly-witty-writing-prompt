@@ -142,7 +142,7 @@ const resolvers = {
             return notAdmin
         },
         addPrompt: async (parent, args) => {
-            const prompt = await Prompt.create({author: author, promptText: args.promptText})
+            const prompt = await Prompt.create({promptText: args.promptText})
             await User.findOneAndUpdate({$addToSet: {prompts: prompt}})
             console.log(prompt)
             return prompt
