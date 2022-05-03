@@ -8,7 +8,11 @@ import NoMatch from './pages/NoMatch';
 // import Signup from './pages/Signup';
 
 
+<<<<<<< HEAD
 // import Header from './components/Header';
+=======
+import Header from './components/Header';
+>>>>>>> feature/header
 import Footer from './components/Footer';
 
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -29,7 +33,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
-          {/* <Header /> */}
+          <Header />
           <div className="container">
             <Routes>
               <Route
