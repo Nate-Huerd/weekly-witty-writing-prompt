@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const StoryList = ({ stories, title }) => {
   if (!stories.length) {
@@ -17,11 +18,13 @@ const StoryList = ({ stories, title }) => {
               Wrote on {story.createdAt}
             </p>
             <div className="card-body">
+            <Link to={`/story/${story._id}`}>
               <p>{story.storyText}</p>
               <p className="mb-0">
                 Comments: {story.commentCount} || Click to{' '}
                 {story.commentCount ? 'see' : 'start'} the discussion!
               </p>
+              </Link>
             </div>
           </div>
         ))}
