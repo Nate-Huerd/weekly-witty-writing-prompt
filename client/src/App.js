@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
-import NoMatch from './pages/NoMatch';
+import NoMatch from "./pages/NoMatch";
+import SingleStory from "./pages/SingleStory";
 import Signup from "./pages/Signup";
 
 import Header from "./components/Header";
@@ -38,6 +39,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/story/:id" element={<SingleStory />} />
 
               <Route path="*" element={<NoMatch />} />
             </Routes>
