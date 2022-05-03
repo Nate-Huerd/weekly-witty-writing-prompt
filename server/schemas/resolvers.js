@@ -30,6 +30,11 @@ const resolvers = {
             .populate('prompt')
             return prompt
         },
+        promptByUser: async (parent, args) => {
+            const user= await User.findOne({username})
+            const prompts = await Prompt.find({user}).populate('prompt')
+            return prompts
+        },
 
         Story: async (parent, args) => {
             return await Story.findById(args._id).populate('author')
@@ -136,6 +141,12 @@ const resolvers = {
         removeAdmin: async (parent, {username}) => {
             const notAdmin = await User.findOneAndUpdate({username}, {$set: {isAdmin: false}}, {new: true})
             return notAdmin
+        },
+        addPrompt: async (parent, args) => {
+            const prompt = await Prompt.create({promptText: args.promptText})
+            await User.findOneAndUpdate({$addToSet: {prompts: prompt}})
+            console.log(prompt)
+            return prompt
         }
     }
 }
