@@ -6,11 +6,17 @@ import StoryList from '../components/StoryList';
 import Auth from '../utils/auth';
 import LoginForm from "../components/LoginForm";
 const Dashboard = () => {
-  const {loading, data} = useQuery(QUERY_STORY_BY_USER, 
-    {variables: {author: "Thiccie-C"}})
-    const stories = data?.storyByUser || []
+  var user = ''
+  if(Auth.loggedIn() === false) {
+   user = false
+  } else {
+    user = Auth.getProfile().data
+  }
+  
+  const {loading, data} = useQuery(QUERY_STORY_BY_USER,
+  {variables: {author: user?.username}, skip: user === false})
+  const stories = data?.storyByUser || []
 if (Auth.loggedIn() === true) {
-  const user = Auth.getProfile().data
   const title = "All " + user.username + "'s Stories"
   
   const handleLogout = () =>{
