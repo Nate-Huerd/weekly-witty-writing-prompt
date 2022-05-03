@@ -25,16 +25,16 @@ const resolvers = {
             const users = await User.find().populate('stories')
             return users
         },
-        Prompt: async () => {
-            const prompt = await Prompt.find()
-            .populate('prompt')
-            return prompt
-        },
-        promptByUser: async (parent, args) => {
-            const user= await User.findOne({username})
-            const prompts = await Prompt.find({user}).populate('prompt')
-            return prompts
-        },
+        // Prompt: async () => {
+        //     const prompt = await Prompt.find()
+        //     .populate('prompt')
+        //     return prompt
+        // },
+        // promptByUser: async (parent, args) => {
+        //     const user= await User.findOne({username})
+        //     const prompts = await Prompt.find({user}).populate('prompt')
+        //     return prompts
+        // },
 
         Story: async (parent, args) => {
             return await Story.findById(args._id).populate('author')
@@ -76,7 +76,7 @@ const resolvers = {
         addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
-            return user
+            return { token, user };
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
