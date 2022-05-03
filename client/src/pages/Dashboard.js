@@ -5,7 +5,8 @@ import { useQuery } from "@apollo/client";
 import StoryList from '../components/StoryList';
 import Auth from '../utils/auth';
 import LoginForm from "../components/LoginForm";
-import StoryForm from '../components/StoryForm'
+import StoryForm from '../components/StoryForm';
+import ChangeUsernameForm from "../components/ChangeUsernameForm";
 const Dashboard = () => {
   var user = ''
   if(Auth.loggedIn() === false) {
@@ -20,6 +21,7 @@ if (Auth.loggedIn() === true) {
   const title = "All " + user.username + "'s Stories"
   return (
     <div>
+      <ChangeUsernameForm></ChangeUsernameForm>
         <h1>{user.username}'s Dashboard</h1>
         {loading ? (
           <div>Loading...</div>

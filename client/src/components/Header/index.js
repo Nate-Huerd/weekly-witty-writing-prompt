@@ -34,7 +34,7 @@ const Header = () => {
           ) : (
             <>
             {
-              currentPage === '' ?
+            (currentPage !== 'login' && currentPage !== 'signup') ?
               <>
               <Link to="/login" onClick={() => setCurrentPage('login')}>Login</Link> <Link to="/signup" onClick={() => setCurrentPage('signup')}>Signup</Link> 
               </>: ''

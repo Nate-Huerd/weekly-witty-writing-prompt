@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const CommentList = ({ comments }) => {
   return (
@@ -12,12 +11,7 @@ const CommentList = ({ comments }) => {
           comments.map((comment) => (
             <p className="pill mb-3" key={comment._id}>
               {comment.commentText} {"// "}
-              <Link
-                to={`/profile/${comment.author}`}
-                style={{ fontWeight: 700 }}
-              >
-                {comment.author} on {comment.createdAt}
-              </Link>
+                {comment.author.username} on {comment.createdAt}
             </p>
           ))}
       </div>
