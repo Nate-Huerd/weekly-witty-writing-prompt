@@ -31,9 +31,8 @@ const resolvers = {
             return prompt
         },
         promptByUser: async (parent, args) => {
-            const author = await User.findOne({username: args.author})
-            // check line 36
-            const prompts = await Prompt.find({author}).populate('author')
+            const user= await User.findOne({username})
+            const prompts = await Prompt.find({user}).populate('prompt')
             return prompts
         },
         Story: async (parent, args) => {
@@ -144,7 +143,7 @@ const resolvers = {
         },
         addPrompt: async (parent, args) => {
             const prompt = await Prompt.create({author: author, promptText: args.promptText})
-            await User.findOneAndUpdate({username: args.author}, {$addToSet: {prompts: prompt}})
+            await User.findOneAndUpdate({$addToSet: {prompts: prompt}})
             console.log(prompt)
             return prompt
         }
