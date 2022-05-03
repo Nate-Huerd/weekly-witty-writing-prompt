@@ -20,15 +20,15 @@ mutation signUp($username: String!, $email: String!, $password: String!) {
     }
 }`
 export const LOGIN = gql`
-mutation Login {
-    login {
-      token
-      user {
-       _id
-       username 
-      }
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      username
     }
-}`
+  }
+}
+`
 export const ADD_COMMENT = gql `
 mutation addComment($author: String!, $commentText: String!, $storyId: ID!) {
     addComment(author: $author, commentText: $commentText, storyId: $storyId) {
