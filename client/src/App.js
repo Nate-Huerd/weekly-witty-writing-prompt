@@ -1,6 +1,6 @@
 import React from 'react';
-import Dashboard from "./pages/Dashboard";
-// import Homepage from './pages/Homepage';
+// import Dashboard from "./pages/Dashboard";
+import Homepage from './pages/Homepage';
 
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
@@ -23,8 +23,8 @@ function App() {
        <div className="flex-column justify-flex-start min-100-vh">
          {/* <Header /> */}
          <div className="container">
-    {/* <Homepage />  */}
-    <Dashboard />
+    <Homepage /> 
+    {/* <Dashboard /> */}
     </div>
     {/* <Footer /> */}
     </div>
