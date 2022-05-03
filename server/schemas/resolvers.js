@@ -25,17 +25,19 @@ const resolvers = {
             const users = await User.find().populate('stories')
             return users
         },
-        Prompt: async () => {
-            const prompt = await Prompt.find()
-            .populate('prompt')
+        Prompt: async (parent, args) => {
+            const prompt = await Prompt.find({_id: args.promptId})
+            .populate('author')
+            console.log(prompt)
             return prompt
         },
         promptByUser: async (parent, args) => {
-            const user= await User.findOne({username})
-            const prompts = await Prompt.find({user}).populate('prompt')
+            const user= await User.findOne({username: args.username})
+            console.log(user)
+            const prompts = await Prompt.find({author: user}).populate('author')
+            console.log(prompts)
             return prompts
         },
-
         Story: async (parent, args) => {
             return await Story.findById(args._id).populate('author')
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
@@ -50,7 +52,6 @@ const resolvers = {
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             return stories
         }
-
     },
     Mutation: {
         login: async (parent, { email, password }) => {
@@ -76,7 +77,7 @@ const resolvers = {
         addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
-            return user
+            return { token, user}
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
@@ -143,7 +144,9 @@ const resolvers = {
             return notAdmin
         },
         addPrompt: async (parent, args) => {
-            const prompt = await Prompt.create({promptText: args.promptText})
+            const author = await User.findOne({username: args.author})
+            console.log(author)
+            const prompt = await Prompt.create({author: author, promptText: args.promptText})
             await User.findOneAndUpdate({$addToSet: {prompts: prompt}})
             console.log(prompt)
             return prompt

@@ -11,8 +11,9 @@ const typeDefs = gql`
   }
   type Prompt {
     _id: ID!
-    prompt: String
-    stories: Story
+    author: User
+    promptText: String!
+    stories: [Story]
   }
   type Story {
     _id: ID!
@@ -41,7 +42,8 @@ const typeDefs = gql`
     Story(_id: String): Story
     storyByUser(author: String!): [Story]
     getAllStories: [Story]
-    Prompt: Prompt
+    Prompt(_id: ID!): Prompt
+    promptByUser(username: String!): [Prompt]
   }
   type Mutation {
     editUsername(oldUsername: String!, newUsername: String!): User
@@ -55,7 +57,7 @@ const typeDefs = gql`
     deleteComment(commentId: ID!, storyId: ID!): String
     deleteStoryByAuthor(author: String!): String
     deleteStoryById(storyId: String!): String
-    addPrompt: Prompt
+    addPrompt(promptText: String!, author: String!): Prompt
   }
 `;
 module.exports = typeDefs;

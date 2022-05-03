@@ -2,7 +2,7 @@
 const Story = require('./Story');
 const User = require('./User');
 const Comment = require('./Comment');
-
+const Prompt = require('./Prompt')
 // create associations
 /*
 User.hasMany(story, {
@@ -56,5 +56,5 @@ User.hasMany(story, {
     foreignKey: 'story_id'
   });
   */
-  module.exports = { User, Story, Comment };
+  module.exports = { User, Story, Comment, Prompt };
   

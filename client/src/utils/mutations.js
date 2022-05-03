@@ -14,9 +14,10 @@ mutation AddStory($author: String!, $storyText: String!) {
 export const SIGN_UP = gql`
 mutation signUp($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
-      _id
-      username
-      email
+      token 
+      user{
+        username
+      }
     }
 }`
 export const LOGIN = gql`
