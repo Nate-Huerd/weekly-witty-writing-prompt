@@ -4,7 +4,7 @@ import { QUERY_GET_ALL_STORIES } from "../utils/queries";
 import StoryList from "../components/StoryList";
 import Prompts from "../components/Prompts";
 
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 // import Stories from '../components/StoriesForm';
 // import Comments from "../components/Comments";
@@ -16,11 +16,11 @@ const Home = () => {
   const stories = data?.getAllStories || [];
   console.log(stories);
 
-  const loggedIn = Auth.loggedIn();
+//   const loggedIn = Auth.loggedIn();
 
-  const handleLogout = () =>{
-    Auth.logout()
-  }
+//   const handleLogout = () =>{
+//     Auth.logout()
+//   }
   
 
 //   return (
