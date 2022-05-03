@@ -15,8 +15,8 @@ export const ADD_STORY = gql`
 export const SIGN_UP = gql`
   mutation signUp($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
-      token
-      user {
+      token 
+      user{
         username
       }
     }
