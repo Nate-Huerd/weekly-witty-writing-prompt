@@ -11,7 +11,7 @@ import Prompts from "../components/Prompts";
 const Home = () => {
   // use useQuery hook to make query request
   const { loading, data } = useQuery(QUERY_GET_ALL_STORIES);
-  const stories = data?.stories || [];
+  const stories = data?.getAllStories || [];
   console.log(stories);
 
 //   return (
