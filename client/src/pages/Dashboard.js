@@ -27,8 +27,8 @@ if (Auth.loggedIn() === true) {
           <StoryList stories={stories} title={title}/>
         )}
       <Prompts />
-      <StoryForm author={user.username}></StoryForm>
       <h3>story writing area</h3>
+      <StoryForm author={user.username}></StoryForm>
 
       {/* <Stories /> */}
     </div>
