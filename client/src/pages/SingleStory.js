@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_STORY } from '../utils/queries';
 import CommentList from '../components/CommentList';
-
+import CommentForm from '../components/CommentsForm';
 const SingleStory = props => {
 
     const { id: storyId } = useParams();
@@ -23,7 +23,7 @@ const SingleStory = props => {
         <div className="card mb-3">
           <p className="card-header">
             <span style={{ fontWeight: 700 }} className="text-light">
-              {story.author}
+              {story.author.username}
             </span>{' '}
              {story.createdAt}
           </p>
@@ -33,6 +33,7 @@ const SingleStory = props => {
         </div>
 
         {story.commentCount > 0 && <CommentList comments={story.comments} />}
+        <CommentForm storyId={story._id}></CommentForm>
       </div>
     );
   };
