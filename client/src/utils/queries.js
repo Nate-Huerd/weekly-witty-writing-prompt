@@ -119,3 +119,19 @@ query GetAllUsers {
         email
     }
 }`
+export const TOP_5 = gql`
+query Top5 {
+    Top5 {
+      _id
+      storyText
+      author {
+       username 
+      }
+      createdAt
+      commentCount
+      comments {
+        commentText
+      }
+      upvotes
+    }
+  }`

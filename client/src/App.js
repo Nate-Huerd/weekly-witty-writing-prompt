@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import NoMatch from "./pages/NoMatch";
 import SingleStory from "./pages/SingleStory";
 import Signup from "./pages/Signup";
+import Top5 from './pages/Top5'
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -42,7 +43,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/story/:id" element={<SingleStory />} />
-
+              <Route path='Top5' element={<Top5></Top5>} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
           </div>
