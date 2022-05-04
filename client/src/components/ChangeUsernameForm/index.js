@@ -50,10 +50,12 @@ const ChangeUsernameForm = () => {
         </Form.Group>
         <Button
         type="submit"
+        variant='success'
         disabled={notOriginal}>Submit
         </Button>
         <Button
         onClick={() =>checkAvailability(users)}
+         variant='success'
         disabled={(newUsername.username === '')}
         >
             Check Availability
