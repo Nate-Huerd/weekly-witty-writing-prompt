@@ -18,7 +18,11 @@ const storySchema = new Schema(
       default: Date.now,
       get: (timestamp) => dateFormat(timestamp),
     },
-    comments: [commentSchema]
+    comments: [commentSchema],
+    upvotes: {
+      type: Number,
+      default: 0
+    }
   },
   {
     toJSON: {

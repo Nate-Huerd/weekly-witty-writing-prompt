@@ -69,6 +69,7 @@ export const QUERY_GET_ALL_STORIES = gql`
             commentText
             createdAt
         }
+        upvotes
   }
   }
   
@@ -92,6 +93,7 @@ query story($id: String!) {
             }
             createdAt
         }
+        upvotes
     }
 
 }`
@@ -106,6 +108,7 @@ query storyByUser ($author: String!) {
         storyText
         createdAt
         commentCount
+        upvotes
     }
 }`
 export const QUERY_ALL_USERS = gql`

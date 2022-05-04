@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="bg-secondary mb-4 py-2 flex-row align-center" style={{position: "sticky", overflow: "unset"}}>
       <div className="container flex-row justify-space-between-lg justify-center align-center">
-        <Link to="/" onClick={() => setCurrentPage('')}>
+        <Link to="/" onClick={() => setCurrentPage('')} className='btn'>
           <h1>Weekly Witty Writing Prompts</h1>
         </Link>
 
@@ -23,10 +23,10 @@ const Header = () => {
           {Auth.loggedIn() ? (
             <>
             {currentPage ==="Dashboard" ? 
-            '':<Link to="/Dashboard" onClick={() => setCurrentPage('Dashboard')}>Dashboard</Link>
+            '':<Link to="/Dashboard" onClick={() => setCurrentPage('Dashboard')} className='btn'>Dashboard</Link>
             }
               
-              <a href="/" onClick={logout} class='btn'>
+              <a href="/" onClick={logout} className='btn'>
                 Logout
               </a>
             </>
@@ -35,21 +35,21 @@ const Header = () => {
             {
             (currentPage !== 'login' && currentPage !== 'signup') ?
               <>
-              <Link to="/login" onClick={() => setCurrentPage('login')} class='btn'>Login</Link> <Link to="/signup" onClick={() => setCurrentPage('signup')} class='btn'>Signup</Link> 
+              <Link to="/login" onClick={() => setCurrentPage('login')} className='btn'>Login</Link> <Link to="/signup" onClick={() => setCurrentPage('signup')} class='btn'>Signup</Link> 
               </>: ''
             }
             {
               currentPage === 'login' ?
               <>
               Don't have an account please:
-              <Link to="/signup" onClick={() => setCurrentPage('signup')} class='btn'> Signup</Link>  
+              <Link to="/signup" onClick={() => setCurrentPage('signup')} className='btn'> Signup</Link>  
               </>: ''
             }
             {
               currentPage === 'signup' ?
               <>
               Have an account 
-              <Link to="/login"onClick={() => setCurrentPage('login')} class='btn'> Login </Link> 
+              <Link to="/login"onClick={() => setCurrentPage('login')} className='btn'> Login </Link> 
               here
               </>: ''
             }
