@@ -150,6 +150,16 @@ const resolvers = {
             await User.findOneAndUpdate({$addToSet: {prompts: prompt}})
             console.log(prompt)
             return prompt
+        },
+        Upvote: async (parent, args) => {
+            const upvotedStory = await Story.findById(args.storyId)
+            const addUpvoteValue = upvotedStory.upvotes + 1 
+            return await Story.findOneAndUpdate({_id: args.storyId}, {$set: {upvotes: addUpvoteValue}}, {new: true})
+        },
+        UnUpvote: async (parent, args) => {
+            const upvotedStory = await Story.findById(args.storyId)
+            const subtractUpvoteValue = upvotedStory.upvotes -1
+            return await Story.findOneAndUpdate({_id: args.storyId}, {$set: {upvotes: subtractUpvoteValue}}, {new: true})
         }
     }
 }
