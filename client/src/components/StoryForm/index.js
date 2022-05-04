@@ -36,7 +36,7 @@ const StoryForm = (author, prompt) => {
             </form>
             <script>
                 function handleFormSubmit() {
-                    alert("Your story has been submitted!")
+                    alert("Your story has been submitted!");
                 }
             </script>
             {overCharacterCount ? <p> you are over the character limit!!!</p> : ''
