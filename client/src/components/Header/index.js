@@ -26,7 +26,7 @@ const Header = () => {
             '':<Link to="/Dashboard" onClick={() => setCurrentPage('Dashboard')}>Dashboard</Link>
             }
               
-              <a href="/" onClick={logout}>
+              <a href="/" onClick={logout} class='btn'>
                 Logout
               </a>
             </>
@@ -35,21 +35,21 @@ const Header = () => {
             {
             (currentPage !== 'login' && currentPage !== 'signup') ?
               <>
-              <Link to="/login" onClick={() => setCurrentPage('login')}>Login</Link> <Link to="/signup" onClick={() => setCurrentPage('signup')}>Signup</Link> 
+              <Link to="/login" onClick={() => setCurrentPage('login')} class='btn'>Login</Link> <Link to="/signup" onClick={() => setCurrentPage('signup')} class='btn'>Signup</Link> 
               </>: ''
             }
             {
               currentPage === 'login' ?
               <>
               Don't have an account please:
-              <Link to="/signup" onClick={() => setCurrentPage('signup')}> Signup</Link>  
+              <Link to="/signup" onClick={() => setCurrentPage('signup')} class='btn'> Signup</Link>  
               </>: ''
             }
             {
               currentPage === 'signup' ?
               <>
               Have an account 
-              <Link to="/login"onClick={() => setCurrentPage('login')}> Login </Link> 
+              <Link to="/login"onClick={() => setCurrentPage('login')} class='btn'> Login </Link> 
               here
               </>: ''
             }
