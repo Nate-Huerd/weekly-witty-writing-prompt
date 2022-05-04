@@ -34,8 +34,11 @@ a:visited {
 }
 
 nav {
-  width: 100%;
-  justify-content: center;
+  display: flex;
+  width: auto;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-content: space-around;
 }
 
 nav a {
@@ -47,5 +50,10 @@ nav a {
 nav a:hover {
   color: var(--light);
   background-color: var(--dark);
+}
+
+.container.flex-row.justify-space-between-lg.justify-center.align-center {
+  display:flex;
+  justify-content: space-between;
 }
 
