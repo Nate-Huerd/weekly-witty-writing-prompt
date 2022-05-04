@@ -32,8 +32,13 @@ const StoryForm = (author, prompt) => {
             <p>Character Count: {currentCharacterCount}/5000</p>
             <form>
                 <textarea maxLength="5000" onChange={handleInputChange} type='text' style={{ resize: "none", height: "400px", width: "400px"}}></textarea>
-                <button onClick={handleFormSubmit} type='submit' >Submit</button>
+                <button onClick={handleFormSubmit} className="btn btn-success"  type='submit' >Submit</button>
             </form>
+            {/* <script>
+                function handleFormSubmit() {
+                    alert("Your story has been submitted!")
+                }
+            </script> */}
             {overCharacterCount ? <p> you are over the character limit!!!</p> : ''
 
             }

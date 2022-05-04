@@ -21,15 +21,17 @@ if (Auth.loggedIn() === true) {
   const title = "All " + user.username + "'s Stories"
   return (
     <div>
+      <h1>{user.username}'s Dashboard</h1>
       <ChangeUsernameForm></ChangeUsernameForm>
-        <h1>{user.username}'s Dashboard</h1>
+
+      <Prompts />
+        
         {loading ? (
           <div>Loading...</div>
         ) : (
           <StoryList stories={stories} title={title}/>
         )}
-      <Prompts />
-      <h3>story writing area</h3>
+    
       <StoryForm author={user.username}></StoryForm>
 
       {/* <Stories /> */}
