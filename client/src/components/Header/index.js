@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-
 import Auth from '../../utils/auth';
 
 const Header = () => {
@@ -14,7 +13,7 @@ const Header = () => {
     setCurrentPage(currentPageName)
   }
   return (
-    <header className="bg-secondary mb-4 py-2 flex-row align-center">
+    <header className="bg-secondary mb-4 py-2 flex-row align-center" style={{position: "sticky", overflow: "unset"}}>
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/" onClick={() => setCurrentPage('')}>
           <h1>Weekly Witty Writing Prompts</h1>
