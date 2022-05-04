@@ -39,6 +39,7 @@ nav {
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-content: space-around;
+  align-items: center;
 }
 
 nav a {
@@ -57,3 +58,9 @@ nav a:hover {
   justify-content: space-between;
 }
 
+.btn {
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+  border-color: black;
+  background-color: #E0E0E0;
+}
