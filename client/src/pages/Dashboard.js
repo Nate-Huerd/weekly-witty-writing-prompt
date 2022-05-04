@@ -23,14 +23,15 @@ if (Auth.loggedIn() === true) {
     <div>
       <h1>{user.username}'s Dashboard</h1>
       <ChangeUsernameForm></ChangeUsernameForm>
+
+      <Prompts />
         
         {loading ? (
           <div>Loading...</div>
         ) : (
           <StoryList stories={stories} title={title}/>
         )}
-      <Prompts />
-      <h3>story writing area</h3>
+    
       <StoryForm author={user.username}></StoryForm>
 
       {/* <Stories /> */}
