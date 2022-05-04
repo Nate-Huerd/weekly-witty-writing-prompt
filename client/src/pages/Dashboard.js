@@ -21,8 +21,9 @@ if (Auth.loggedIn() === true) {
   const title = "All " + user.username + "'s Stories"
   return (
     <div>
+      <h1>{user.username}'s Dashboard</h1>
       <ChangeUsernameForm></ChangeUsernameForm>
-        <h1>{user.username}'s Dashboard</h1>
+        
         {loading ? (
           <div>Loading...</div>
         ) : (

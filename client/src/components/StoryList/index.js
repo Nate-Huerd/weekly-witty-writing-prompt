@@ -11,14 +11,14 @@ const StoryList = ({ stories, title }) => {
       <h3>{title}</h3>
       {stories &&
         stories.map(story => (
-          <div key={story._id} className="card mb-3">
+          <div key={story._id} className="card mb-3 ">
             <h3>Author: {story.author.username}</h3>
             <p className="card-header">
               {/* {story.author} */}
               Wrote on {story.createdAt}
             </p>
-            <div className="card-body">
-            <Link to={`/story/${story._id}`}>
+            <div className="card-body ">
+            <Link  style={{ textDecoration: 'none' }} to={`/story/${story._id}`}>
               <p>{story.storyText}</p>
               <p className="mb-0">
                 Comments: {story.commentCount} || Click to{' '}
