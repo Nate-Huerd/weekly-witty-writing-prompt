@@ -13,8 +13,8 @@ function Modal({ closeModal }) {
   }
 
     return (
-        <div className="modalBackdrop">
-        <div className="modalContainer">
+        <div className="modalBackdrop" style={{height: "600px"}}>
+        <div className="modalContainer" style={{height: "600px"}}>
           <button onClick={() => closeModal(false)} className="btn btn-success"> Close </button>
           <div className="title">
           <Prompts />
