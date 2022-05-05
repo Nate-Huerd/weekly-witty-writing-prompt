@@ -52,7 +52,7 @@ const Upvote = (story) => {
         <div>
            
             {upvoted ?
-            <Button onClick={handleUnupvote}>UnUpvote</Button> : <Button onClick={handleUpvote}>Upvote</Button>
+            <Button  variant='success' onClick={handleUnupvote}>UnUpvote</Button> : <Button   variant='success' onClick={handleUpvote}>Upvote</Button>
             }
             <p>Upvotes: {story.story.upvotes}</p>
         </div>    
