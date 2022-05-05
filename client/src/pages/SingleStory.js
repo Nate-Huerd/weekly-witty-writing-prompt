@@ -29,6 +29,7 @@ const SingleStory = props => {
           </p>
           <div className="card-body">
             <p>{story.storyText}</p>
+            <p>Upvotes: {story.upvotes} go to homepage to upvote</p>
           </div>
         </div>
 
