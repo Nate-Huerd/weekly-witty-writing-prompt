@@ -43,6 +43,12 @@ db.once('open', async () => {
             }
         ]
     });
+    await User.create({
+        username: 'ADMIN',
+        email: 'ADMIN@ADMIN.COM',
+        password: 'ADMIN123',
+        isAdmin: true
+    })
     /* add another user
     await User.create({
         username: 'ElevatorPitchCam',
