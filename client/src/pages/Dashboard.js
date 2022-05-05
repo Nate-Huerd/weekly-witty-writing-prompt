@@ -37,12 +37,12 @@ if (Auth.loggedIn() === true) {
           <StoryList stories={stories} title={title}/>
         )}
     
-      {/* <StoryForm author={user.username}></StoryForm> */}
-      <button className="openModalBtn btn btn-success" onClick={() => {
+    <h2> Start Writing!</h2>
+      <button className="openModalBtn btn btn-success text-center" onClick={() => {
         setOpenModal(true);
       }}
       >
-        Write a story!
+        Create Story
         </button>
       {openModal && <Modal closeModal={setOpenModal}/>}
 
