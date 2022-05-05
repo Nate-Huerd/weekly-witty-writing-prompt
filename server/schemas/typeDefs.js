@@ -45,6 +45,7 @@ const typeDefs = gql`
     getAllStories: [Story]
     Prompt(_id: ID!): Prompt
     promptByUser(username: String!): [Prompt]
+    Top5: [Story]
   }
   type Mutation {
     Upvote(storyId: ID!): Story
