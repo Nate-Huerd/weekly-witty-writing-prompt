@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_STORY } from "../../utils/mutations";
 import { Form, Button, Alert } from 'react-bootstrap';
 const StoryForm = (author, prompt) => {
-    var storySubmitted = false
+    const [storySubmitted, setstorySubmitted] = useState(false)
     const [addStory] = useMutation(ADD_STORY) 
     const [storyFormData, setFormData] = useState({storyText: ''})
     const [currentCharacterCount, setCurrentCharacterCount] = useState(0)
@@ -20,24 +20,23 @@ const StoryForm = (author, prompt) => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-       
         try {
-            const response = await addStory({variables: {author: author.author, storyText: storyFormData.storyText}})
-            console.log(response)
+            await addStory({variables: {author: author.author, storyText: storyFormData.storyText}})
         }
-        catch {
-            // console.error(err);
+        catch (err){
+            console.error(err);
         }
-        storySubmitted = true
+        setstorySubmitted(true)
         setFormData({storyText: ''})
-        
     }
     return(
         <div>
             <p>Character Count: {currentCharacterCount}/5000</p>
-            <Form>
-                <Form.Control  maxLength="5000" onChange={handleInputChange} type='text' style={{ resize: "none"}}/>
-                <Button disabled={(currentCharacterCount === 0)} onClick={handleFormSubmit} className="btn btn-success"  type='submit' >Submit</Button>
+            <Form >
+                <div className="grow-wrap" style={{height: "320px"}}>
+                <textarea name="text" id="text" maxLength="5000" onChange={handleInputChange} style={{width:'100%', height: "100%", resize: 'none'}}></textarea>
+                </div>
+                <Button style={{display:"flex"}} disabled={(currentCharacterCount === 0)} onClick={handleFormSubmit} className="btn btn-success"  type='submit' >Submit</Button>
                 <Alert show={(currentCharacterCount === 0)}>Please write a story</Alert>
                 <Alert show={storySubmitted}>Story Submitted Sucessfully!</Alert>
             </Form>
