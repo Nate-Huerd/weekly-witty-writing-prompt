@@ -2,6 +2,7 @@ import React from 'react';
 import Prompts from '../Prompts';
 import StoryForm from '../StoryForm';
 import Auth from '../../utils/auth';
+import "./Modal.css";
 
 function Modal({ closeModal }) {
   var user = ''
@@ -14,7 +15,7 @@ function Modal({ closeModal }) {
     return (
         <div className="modalBackdrop">
         <div className="modalContainer">
-          <button onClick={() => closeModal(false)} className="btn btn-success"> X </button>
+          <button onClick={() => closeModal(false)} className="btn btn-success"> Close </button>
           <div className="title">
           <Prompts />
           </div>
@@ -24,9 +25,9 @@ function Modal({ closeModal }) {
           <StoryForm author={user.username}></StoryForm>
           </div>
           <div className="footer">
-          <button onClick={() => closeModal(false)} className="btn btn-success">
+          {/* <button onClick={() => closeModal(false)} className="btn btn-success">
             Back to Dashboard
-          </button>
+          </button> */}
           </div>
         </div>
       </div>

@@ -34,7 +34,6 @@ const StoryForm = (author, prompt) => {
     }
     return(
         <div>
-            
             <p>Character Count: {currentCharacterCount}/5000</p>
             <Form>
                 <Form.Control  maxLength="5000" onChange={handleInputChange} type='text' style={{ resize: "none"}}/>
