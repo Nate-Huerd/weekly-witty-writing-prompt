@@ -50,7 +50,10 @@ const Header = () => {
             {currentPage ==='UsersPage' ?
                '' :  <Link to='/UsersPage'className={isAdmin.className} onClick={() => setCurrentPage('UsersPage')}>UsersPage</Link>
             }
-            
+            {
+              currentPage ==='Donate' ? 
+              '': <Link to='/Donate'  onClick={() => setCurrentPage('Donate')} className="btn">Donate!</Link>
+            }
             </>
           ) : (
             <>

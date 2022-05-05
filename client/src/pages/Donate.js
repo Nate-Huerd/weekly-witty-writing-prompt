@@ -18,8 +18,13 @@ const Donate = () => {
       }, [data]);
     return (
         <div>
-            <button onClick={handleDonate}>Donate!</button>
+            <div className="card mb-3">
+            <h3  className="card-header">Thanks For Checking out the Donation Page!</h3>
+            <div className="card-body ">
+                <p>Donations are appreciated but not required!</p>  <button onClick={handleDonate} className="btn-success">Donate!</button>
             {/* {loading ? <p> Please wait while we load your donation </p> : ''} */}
+            </div>
+            </div>
         </div>
     )
 }
