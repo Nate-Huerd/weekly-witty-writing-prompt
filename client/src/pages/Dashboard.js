@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Prompts from "../components/Prompts";
 import { QUERY_STORY_BY_USER } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import StoryList from '../components/StoryList';
 import Auth from '../utils/auth';
 import LoginForm from "../components/LoginForm";
-import StoryForm from '../components/StoryForm';
-import ChangeUsernameForm from "../components/ChangeUsernameForm";
+import Modal from '../components/Modal';
+import ModalTwo from '../components/ModalTwo';
+
 const Dashboard = () => {
+
+const [openModal, setOpenModal] = useState(false);
+
+const[openModalTwo, setOpenModalTwo] = useState(false);
+
   var user = ''
   if(Auth.loggedIn() === false) {
    user = false
@@ -22,7 +28,15 @@ if (Auth.loggedIn() === true) {
   return (
     <div>
       <h1>{user.username}'s Dashboard</h1>
-      <ChangeUsernameForm></ChangeUsernameForm>
+
+<button className="openModalTwoBtn btn btn-success"onClick={() => {
+        setOpenModalTwo(true);
+      }}
+      >
+        Change Username
+        </button>
+      {openModalTwo && <ModalTwo closeModalTwo={setOpenModalTwo}/>}
+     
 
       <Prompts />
         
@@ -32,7 +46,14 @@ if (Auth.loggedIn() === true) {
           <StoryList stories={stories} title={title}/>
         )}
     
-      <StoryForm author={user.username}></StoryForm>
+    <h2> Start Writing!</h2>
+      <button className="openModalBtn btn btn-success" onClick={() => {
+        setOpenModal(true);
+      }}
+      >
+        Create Story
+        </button>
+      {openModal && <Modal closeModal={setOpenModal}/>}
 
       {/* <Stories /> */}
     </div>

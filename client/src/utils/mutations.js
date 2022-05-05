@@ -28,6 +28,7 @@ export const LOGIN = gql`
       token
       user {
         username
+        isAdmin
       }
     }
   }
@@ -68,3 +69,47 @@ export const EDIT_USERNAME = gql`
     }
   }
 `;
+export const UPVOTE = gql`
+mutation Upvote($storyId: ID!) {
+  Upvote(storyId: $storyId) {
+    _id
+    storyText
+    createdAt
+    commentCount
+    upvotes
+  }
+}
+`
+export const UNUPVOTE = gql`
+mutation UnUpvote($storyId: ID!) {
+  UnUpvote(storyId: $storyId) {
+    _id
+    storyText
+    createdAt
+    commentCount
+    upvotes
+  }
+}
+`
+
+export const MAKE_ADMIN = gql`
+mutation MakeAdmin($username: String!) {
+  makeAdmin(username: $username) {
+    _id
+    username
+    email
+    storyCount
+    isAdmin
+  }
+}`
+export const REMOVE_ADMIN = gql`
+mutation RemoveAdmin($username: String) {
+  removeAdmin(username: $username) {
+    _id
+    username
+    email
+    storyCount
+    isAdmin
+  }
+}
+`

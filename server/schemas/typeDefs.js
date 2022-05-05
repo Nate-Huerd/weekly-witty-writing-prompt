@@ -22,6 +22,7 @@ const typeDefs = gql`
     createdAt: String
     commentCount: Int
     comments: [Comment]
+    upvotes: Int
   }
   type Comment {
     _id: ID!
@@ -29,10 +30,12 @@ const typeDefs = gql`
     createdAt: String
     author: User
   }
-  
   type Auth {
     token: ID!
     user: User
+  }
+  type Donate {
+    session: ID
   }
   type Query {
     me: User
@@ -44,8 +47,12 @@ const typeDefs = gql`
     getAllStories: [Story]
     Prompt(_id: ID!): Prompt
     promptByUser(username: String!): [Prompt]
+    Top5: [Story]
+    Donate: Donate
   }
   type Mutation {
+    Upvote(storyId: ID!): Story
+    UnUpvote(storyId: ID!): Story
     editUsername(oldUsername: String!, newUsername: String!): User
     login(email: String!, password: String!): Auth
     makeAdmin(username: String!): User

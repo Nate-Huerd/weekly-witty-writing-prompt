@@ -1,13 +1,15 @@
 import React, {useState} from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_STORY } from "../../utils/mutations";
+import { Form, Button, Alert } from 'react-bootstrap';
 const StoryForm = (author, prompt) => {
+    const [storySubmitted, setstorySubmitted] = useState(false)
     const [addStory] = useMutation(ADD_STORY) 
-    const [storyFormData, setUserFormData] = useState({storyText: ''})
-    const [currentCharacterCount, setCurrentCharacterCount] = useState('0')
+    const [storyFormData, setFormData] = useState({storyText: ''})
+    const [currentCharacterCount, setCurrentCharacterCount] = useState(0)
     const handleInputChange = (event) => {
         const { value } = event.target;
-        setUserFormData( {...storyFormData, storyText: value})
+        setFormData( {...storyFormData, storyText: value})
         const wordLength = value.split('')
         setCurrentCharacterCount(wordLength.length)
       };
@@ -19,26 +21,26 @@ const StoryForm = (author, prompt) => {
         event.preventDefault();
         event.stopPropagation();
         try {
-            const response = await addStory({variables: {author: author.author, storyText: storyFormData.storyText}})
-            console.log(response)
+            await addStory({variables: {author: author.author, storyText: storyFormData.storyText}})
         }
-        catch {
-            // console.error(err);
+        catch (err){
+            console.error(err);
         }
+        setstorySubmitted(true)
+        setFormData({storyText: ''})
+        window.location.reload()
     }
     return(
         <div>
-            <h2> Start Writing!</h2>
             <p>Character Count: {currentCharacterCount}/5000</p>
-            <form>
-                <textarea maxLength="5000" onChange={handleInputChange} type='text' style={{ resize: "none", height: "400px", width: "400px"}}></textarea>
-                <button onClick={handleFormSubmit} className="btn btn-success"  type='submit' >Submit</button>
-            </form>
-            {/* <script>
-                function handleFormSubmit() {
-                    alert("Your story has been submitted!")
-                }
-            </script> */}
+            <Form >
+                <div className="grow-wrap" style={{height: "320px"}}>
+                <textarea name="text" id="text" maxLength="5000" onChange={handleInputChange} style={{width:'100%', height: "100%", resize: 'none'}}></textarea>
+                </div>
+                <Button style={{display:"flex"}} disabled={(currentCharacterCount === 0)} onClick={handleFormSubmit} className="btn btn-success"  type='submit' >Submit</Button>
+                <Alert show={(currentCharacterCount === 0)}>Please write a story</Alert>
+                <Alert show={storySubmitted}>Story Submitted Sucessfully!</Alert>
+            </Form>
             {overCharacterCount ? <p> you are over the character limit!!!</p> : ''
 
             }

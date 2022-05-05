@@ -34,8 +34,12 @@ a:visited {
 }
 
 nav {
-  width: 100%;
-  justify-content: center;
+  display: flex;
+  width: auto;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-content: space-around;
+  align-items: center;
 }
 
 nav a {
@@ -44,7 +48,16 @@ nav a {
   transition: all 0.2s;
 }
 
-nav a:hover {
-  
+
+.container.flex-row.justify-space-between-lg.justify-center.align-center {
+  display:flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+  border-color: black;
+  background-color: #E0E0E0;
 }
 

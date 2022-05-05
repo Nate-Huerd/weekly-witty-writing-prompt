@@ -26,13 +26,12 @@ const LoginForm = () => {
     console.log(userFormData.email)
     try {
       const response = await login({variables: {email: userFormData.email, password: userFormData.password}});
-      console.log(response)
       if (!response.data) {
         throw new Error('something went wrong!');
       }
 
       const { token, user } = await response.data.login;
-      console.log(user);
+      console.log(user)
       Auth.login(token);
     } catch (err) {
       console.error(err);
@@ -80,7 +79,8 @@ const LoginForm = () => {
         <Button
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          variant='success'
+          >
           Submit
         </Button>
       </Form>

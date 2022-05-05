@@ -1,5 +1,5 @@
-const { Comment, Story, User, Prompt } = require('../models')
-
+const { Story, User, Prompt } = require('../models')
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const {AuthenticationError} = require('apollo-server-express')
 const {signToken} = require('../utils/auth')
@@ -28,14 +28,11 @@ const resolvers = {
         Prompt: async (parent, args) => {
             const prompt = await Prompt.find({_id: args.promptId})
             .populate('author')
-            console.log(prompt)
             return prompt
         },
         promptByUser: async (parent, args) => {
             const user= await User.findOne({username: args.username})
-            console.log(user)
             const prompts = await Prompt.find({author: user}).populate('author')
-            console.log(prompts)
             return prompts
         },
         Story: async (parent, args) => {
@@ -51,7 +48,44 @@ const resolvers = {
             const stories = await Story.find().populate('comments').populate('author').sort( {createdAt: -1})
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             return stories
-        }
+        },
+        Top5: async () => {
+            const stories = await Story.find({upvotes: {$gt: 0}}).populate('comments').populate('author').sort( {upvotes: -1})
+            .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
+            const storiesArray = []
+            for(var i=0; i < 5; i++) {
+                storiesArray.push(stories[i])
+            }
+            return storiesArray
+        },
+        Donate: async (parent, args, context) => {
+            var urltext = ''
+            if(context.headers.host  === 'localhost:3001' ){
+                urltext='http://localhost:3000'
+            } else {
+                urltext ="https://weekly-witty-writing-prompts.herokuapp.com"
+            }
+            const url = new URL(urltext);
+            const product = await stripe.products.create({
+                name: "Premium Membership",
+                description: "Donate 5$ to gain premium benefits"
+            });
+            const price = await stripe.prices.create({
+                product: product.id,
+                unit_amount: 500,
+                currency: 'usd'
+            })
+            const line_items = [{price: price.id, quantity: 1}]
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${url}/donate`
+              });
+              
+              return { session: session.id };
+          }
     },
     Mutation: {
         login: async (parent, { email, password }) => {
@@ -97,19 +131,16 @@ const resolvers = {
           },
         addStory: async (parent, args) => {
             const author = await User.findOne({username: args.author})
-            console.log(author) 
             const story = await Story.create({author: author, storyText: args.storyText})
             await User.findOneAndUpdate({username: args.author}, {$addToSet: {stories: story}})
-            console.log(story)
+    
             return story
         },
         addComment: async (parent, args) => {
             const commentAuthor = await User.findOne({username: args.author})
-            console.log(commentAuthor.username)
             const updatedComment = await Story.findOneAndUpdate({_id: args.storyId},{$addToSet: {comments: {commentText: args.commentText, author: commentAuthor}}}, {new: true, runvalidators: true})
             .populate({path: 'comments', populate: { path: 'author', model: 'User'}})
             const index = updatedComment.comments.length - 1
-            console.log(updatedComment.comments[index])
             return updatedComment.comments[index]
         },
         // editComment: async (parent, args) => {
@@ -127,7 +158,6 @@ const resolvers = {
         },
         deleteStoryById: async (parent, {storyId}) => {
             const deletedStory = await Story.deleteOne({_id: storyId})
-            console.log(deletedStory)
             if (deletedStory.deletedCount === 0) {
                 return "No Story with that ID"
             }
@@ -145,11 +175,19 @@ const resolvers = {
         },
         addPrompt: async (parent, args) => {
             const author = await User.findOne({username: args.author})
-            console.log(author)
             const prompt = await Prompt.create({author: author, promptText: args.promptText})
             await User.findOneAndUpdate({$addToSet: {prompts: prompt}})
-            console.log(prompt)
             return prompt
+        },
+        Upvote: async (parent, args) => {
+            const upvotedStory = await Story.findById(args.storyId)
+            const addUpvoteValue = upvotedStory.upvotes + 1 
+            return await Story.findOneAndUpdate({_id: args.storyId}, {$set: {upvotes: addUpvoteValue}}, {new: true})
+        },
+        UnUpvote: async (parent, args) => {
+            const upvotedStory = await Story.findById(args.storyId)
+            const subtractUpvoteValue = upvotedStory.upvotes -1
+            return await Story.findOneAndUpdate({_id: args.storyId}, {$set: {upvotes: subtractUpvoteValue}}, {new: true})
         }
     }
 }
