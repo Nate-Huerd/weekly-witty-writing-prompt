@@ -114,9 +114,11 @@ query storyByUser ($author: String!) {
 export const QUERY_ALL_USERS = gql`
 query GetAllUsers {
     getAllUsers {
+        isAdmin
         _id
         username
         email
+        storyCount
     }
 }`
 export const TOP_5 = gql`
