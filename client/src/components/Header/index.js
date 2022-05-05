@@ -14,7 +14,7 @@ const Header = () => {
   }
   console.log(currentPage)
   return (
-    <header className="bg-secondary mb-4 py-2 flex-row align-center" style={{position: "sticky", overflow: "unset"}}>
+    <header className="bg-secondary mb-4 py-2 flex-row align-center" style={{position: 'sticky', top: 0, zIndex: 1}}>
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/" onClick={() => setCurrentPage('')} className='btn'>
           <h1>Weekly Witty Writing Prompts</h1>
