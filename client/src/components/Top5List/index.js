@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Upvote from '../Upvote'
 const Top5List = (storiesdata) => {
     const stories= storiesdata.stories
     const firstplace = [stories[0]]
@@ -8,6 +7,13 @@ const Top5List = (storiesdata) => {
     const thirdPlace = [stories[2]]
     console.log(firstplace, secondPlace, thirdPlace)
     const otherStories = [stories[3], stories[4]]
+    if(otherStories === undefined || secondPlace === undefined|| firstplace === undefined|| thirdPlace === undefined) {
+      return (
+        <div>
+          not enough entries to display
+        </div>
+      )
+    }
     return (
         <div>
             {firstplace && firstplace.map(story => (
@@ -16,7 +22,7 @@ const Top5List = (storiesdata) => {
                 {
                     
                 }
-                <h2 style={{color: '#D6AF36'}}>FIRST PLACE</h2>
+                <h2 style={{color: '#D6AF36'}}>FIRST PLACE WITH {story.upvotes} UPVOTES</h2>
                 <h3 >Author: {story.author.username}</h3>
 
                 <p className="card-header">
@@ -41,7 +47,7 @@ const Top5List = (storiesdata) => {
                 {
                     
                 }
-                <h2 style={{color: '#D7D7D7'}}>SECOND PLACE</h2>
+                <h2 style={{color: '#D7D7D7'}}>SECOND PLACE WITH {story.upvotes} UPVOTES</h2>
                 <h3>Author: {story.author.username}</h3>
 
                 <p className="card-header">
@@ -66,7 +72,7 @@ const Top5List = (storiesdata) => {
                 {
                     
                 }
-                <h2 style={{color: '#824A02'}}>THIRD PLACE</h2>
+                <h2 style={{color: '#824A02'}}>THIRD PLACE WITH {story.upvotes} UPVOTES</h2>
                 <h3>Author: {story.author.username}</h3>
 
                 <p className="card-header">
@@ -90,8 +96,9 @@ const Top5List = (storiesdata) => {
               <div key={story._id} className="card mb-3">
                 <Link  style={{ textDecoration: 'none' }} to={`/story/${story._id}`} className='btn'>
                 {
-                    
+                  
                 }
+                <h2 style={{color: '#3A3B3C'}}>RUNNER UP WITH {story.upvotes} UPVOTES</h2>
                 <h3>Author: {story.author.username}</h3>
 
                 <p className="card-header">
