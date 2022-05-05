@@ -11,6 +11,8 @@ import SingleStory from "./pages/SingleStory";
 import Signup from "./pages/Signup";
 import Top5 from './pages/Top5'
 import Userspage from './pages/Userspage'
+import Donate from './pages/Donate'
+import DonateSuccess from './pages/DonateSucess'
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -44,8 +46,10 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/story/:id" element={<SingleStory />} />
-              <Route path='Top5' element={<Top5/>} />
-              <Route path='Userspage' element={<Userspage/>} />
+              <Route path='/Top5' element={<Top5/>} />
+              <Route path='/Userspage' element={<Userspage/>} />
+              <Route path='/Donate' element={<Donate/>}/>
+              <Route path="/success" element={<DonateSuccess/>}/>
               <Route path="*" element={<NoMatch />} />
             </Routes>
           </div>

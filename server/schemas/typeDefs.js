@@ -30,10 +30,12 @@ const typeDefs = gql`
     createdAt: String
     author: User
   }
-  
   type Auth {
     token: ID!
     user: User
+  }
+  type Donate {
+    session: ID
   }
   type Query {
     me: User
@@ -46,6 +48,7 @@ const typeDefs = gql`
     Prompt(_id: ID!): Prompt
     promptByUser(username: String!): [Prompt]
     Top5: [Story]
+    Donate: Donate
   }
   type Mutation {
     Upvote(storyId: ID!): Story

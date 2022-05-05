@@ -11,6 +11,7 @@ const Header = () => {
   };
   if(Auth.loggedIn()) {
     adminState = Auth.getProfile().data.isAdmin
+    console.log(adminState)
     if(adminState) {
       className = "btn"
     } else {
@@ -47,7 +48,7 @@ const Header = () => {
               Logout
             </a>
             {currentPage ==='UsersPage' ?
-               '' :  <Link to='/UsersPage'  className={isAdmin.className} onClick={() => setCurrentPage('Userspage')}>UsersPage</Link>
+               '' :  <Link to='/UsersPage'className={isAdmin.className} onClick={() => setCurrentPage('UsersPage')}>UsersPage</Link>
             }
             
             </>
