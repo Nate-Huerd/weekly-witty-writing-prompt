@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Upvote from '../Upvote'
-import {Button} from 'react-bootstrap'
+import {Button, Alert} from 'react-bootstrap'
 import { useMutation } from '@apollo/client';
 import { DELETE_STORY_BY_ID } from '../../utils/mutations';
 const StoryList = ({ stories, title }) => {
   const [currentPage] = useState(window.location.href.split('/')[3])
+  const [storyDeleteData, setStoryDeleteData] = useState({id: ""})
   const [deleteStory] = useMutation(DELETE_STORY_BY_ID)
   if (!stories.length) {
     return <h3>No Stories Yet</h3>;
@@ -20,12 +21,27 @@ const StoryList = ({ stories, title }) => {
       console.log(err)
     }
   }
+  const handleClick = (event) => {
+    const id = event.target.id
+    setStoryDeleteData({id: id})
+  }
+  const handleNotDelete = () => {
+    setStoryDeleteData({id: ''})
+  }
+  const isClicked = (story) => {
+    const id = story.story._id
+    console.log(storyDeleteData)
+    if (id === storyDeleteData.id) {
+      return true
+    }
+    return false
+  }
   if(currentPage === "Dashboard") {
     return (
       <div>
       <h3>{title}</h3>
       {stories &&
-        stories.map(story => (
+        stories.map((story) => (
           <div key={story._id} className="card mb-3">
             <Link  style={{ textDecoration: 'none' }} to={`/story/${story._id}`} className='btn'>
             <h3>Author: {story.author.username}</h3>
@@ -44,7 +60,8 @@ const StoryList = ({ stories, title }) => {
               <div style={{display: 'flex', justifyContent: 'center'}}>
               <Upvote story={story} ></Upvote>
               </div>
-              <Button className='btn' id={story._id} onClick={handleDelete}>Delete Story</Button>
+              <Button className='btn btn-danger' id={story._id} onClick={handleClick}>Delete Story</Button>
+              <Alert show={isClicked({story})}>Are you sure you would like to delete this masterpiece? <Button id={story._id} onClick={handleDelete}>Yes</Button> <Button onClick={handleNotDelete}>No</Button></Alert>
           </div>
         ))}
     </div>

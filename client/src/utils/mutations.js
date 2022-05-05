@@ -28,6 +28,7 @@ export const LOGIN = gql`
       token
       user {
         username
+        isAdmin
       }
     }
   }
@@ -87,6 +88,28 @@ mutation UnUpvote($storyId: ID!) {
     createdAt
     commentCount
     upvotes
+  }
+}
+`
+
+export const MAKE_ADMIN = gql`
+mutation MakeAdmin($username: String!) {
+  makeAdmin(username: $username) {
+    _id
+    username
+    email
+    storyCount
+    isAdmin
+  }
+}`
+export const REMOVE_ADMIN = gql`
+mutation RemoveAdmin($username: String) {
+  removeAdmin(username: $username) {
+    _id
+    username
+    email
+    storyCount
+    isAdmin
   }
 }
 `

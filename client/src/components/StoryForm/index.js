@@ -28,6 +28,7 @@ const StoryForm = (author, prompt) => {
         }
         setstorySubmitted(true)
         setFormData({storyText: ''})
+        window.location.reload()
     }
     return(
         <div>
