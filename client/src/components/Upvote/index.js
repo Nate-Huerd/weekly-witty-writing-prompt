@@ -6,7 +6,7 @@ import {Button} from 'react-bootstrap'
 const Upvote = (story) => {
     var user =''
     const storydata = story.story
-    const [upvoted, setUpvoted] = useState(false)
+    const [upvoted, setUpvoted] = useState(null)
     const [upvote] = useMutation(UPVOTE)
     const [unupvote] = useMutation(UNUPVOTE)
     const storyId = storydata._id
@@ -31,15 +31,25 @@ const Upvote = (story) => {
             console.log(err)
         }
     } 
-    if(user === storydata.author.username) {
+    if(!Auth.loggedIn()) {
         return (
-            <div></div>
+            <div>
+                <h6>Please signup or login to upvote</h6>
+                <div>
+                Upvotes: {story.story.upvotes}
+                </div>
+            </div>
         )
     }
-
-
+    if(user === storydata.author.username) {
+        return (
+            <div>
+                <p>Upvotes: {story.story.upvotes}</p>
+            </div>
+        )
+    }
     return (
-        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <div>
            
             {upvoted ?
             <Button onClick={handleUnupvote}>UnUpvote</Button> : <Button onClick={handleUpvote}>Upvote</Button>

@@ -26,7 +26,9 @@ const StoryList = ({ stories, title }) => {
               </p>
             </div>
               </Link>
-              <Upvote story={story}></Upvote>
+              <div style={{display: 'flex', justifyContent: 'center'}}>
+              <Upvote story={story} ></Upvote>
+              </div>
           </div>
         ))}
     </div>
