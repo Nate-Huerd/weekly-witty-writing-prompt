@@ -1,5 +1,5 @@
-const { Comment, Story, User, Prompt } = require('../models')
-
+const { Story, User, Prompt } = require('../models')
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const {AuthenticationError} = require('apollo-server-express')
 const {signToken} = require('../utils/auth')
@@ -57,7 +57,35 @@ const resolvers = {
                 storiesArray.push(stories[i])
             }
             return storiesArray
-        }
+        },
+        Donate: async (parent, args, context) => {
+            var urltext = ''
+            if(context.headers.host  === 'localhost:3001' ){
+                urltext='http://localhost:3000'
+            } else {
+                urltext ="https://weekly-witty-writing-prompts.herokuapp.com"
+            }
+            const url = new URL(urltext);
+            const product = await stripe.products.create({
+                name: "Premium Membership",
+                description: "Donate 5$ to gain premium benefits"
+            });
+            const price = await stripe.prices.create({
+                product: product.id,
+                unit_amount: 500,
+                currency: 'usd'
+            })
+            const line_items = [{price: price.id, quantity: 1}]
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${url}/donate`
+              });
+              
+              return { session: session.id };
+          }
     },
     Mutation: {
         login: async (parent, { email, password }) => {

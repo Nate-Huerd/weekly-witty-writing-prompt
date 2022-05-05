@@ -28,6 +28,7 @@
     "concurrently": "^7.1.0"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.29.0",
     "mongoose": "^6.3.1"
   }
 }

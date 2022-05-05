@@ -137,3 +137,10 @@ query Top5 {
       upvotes
     }
   }`
+export const DONATE = gql`
+query Donate {
+    Donate {
+      session
+    }
+  }
+`
